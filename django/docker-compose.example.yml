@@ -1,0 +1,7 @@
+services:
+
+  db:
+    environment:
+      POSTGRES_PASSWORD: bookmarker
+      POSTGRES_USER: bookmarker
+      POSTGRES_DB: bookmarker

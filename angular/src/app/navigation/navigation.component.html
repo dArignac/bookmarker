@@ -1,0 +1,45 @@
+<header class="s-topbar">
+    <a href="#content" class="s-topbar--skip-link">Skip to main content</a>
+    <div class="s-topbar--container">
+
+
+        <nav aria-label="Bookmarker navigation">
+            <ol class="s-navigation">
+                <li>
+                    <a routerLink="/" routerLinkActive="is-selected" class="s-navigation--item">Home</a>
+                </li>
+                @if(isLoggedIn) {
+                <li><a routerLink="/bookmarks" routerLinkActive="is-selected" class="s-navigation--item">Bookmarks</a>
+                </li>
+                <li><a routerLink="/tags" routerLinkActive="is-selected" class="s-navigation--item">Tags</a></li>
+                }
+            </ol>
+        </nav>
+
+        <form id="search" class="s-topbar--searchbar" autocomplete="off" role="search">
+            <div class="s-topbar--searchbar--input-group">
+                <input type="text" placeholder="Search…" value="" autocomplete="off" class="s-input s-input__search" />
+                <span class="svg-icon-bg iconSearch s-input-icon s-input-icon__search"></span>
+            </div>
+        </form>
+
+        <nav class="s-topbar--navigation" aria-label="Log in">
+            <ol class="s-topbar--content">
+                <li>
+                    @if(isLoggedIn) {
+                    <a class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Add bookmark</a>
+                    }
+                </li>
+                <li>
+                    @if(isLoggedIn) {
+                    <a (click)="logout()" class="s-topbar--item ml4 s-topbar--item__unset s-btn s-btn__outlined">Log
+                        out</a>
+                    } @else {
+                    <a (click)="login()" class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Log in</a>
+                    }
+                </li>
+            </ol>
+        </nav>
+
+    </div>
+</header>

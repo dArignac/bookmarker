@@ -1,0 +1,31 @@
+services:
+
+  db:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  bookmarker:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    restart: "no"
+    ports:
+      - "8001:8001"
+
+  bookmarker-static:
+    build:
+      context: .
+      dockerfile: Dockerfile.static
+    restart: "no"
+    ports:
+      - "8002:80"
