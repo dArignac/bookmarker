@@ -16,4 +16,11 @@ Activate pipenv shell with `pipenv shell`.
 
 Apply database migrations with `python manage.py migrate`.
 
+FIXME: do we need admin at all?
+Create a superuser with `python manage.py createsuperuser`.
+
+Create a Google app following https://docs.allauth.org/en/latest/socialaccount/providers/google.html, but do not create the entry in the admin site, as be fill the values from the settings.
+
+Copy `.env.dist` to `.env` and fill the marked settings.
+
 Start Django with `python manage.py runserver` and reach the frontend at http://localhost:8000/.
