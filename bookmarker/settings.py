@@ -165,3 +165,4 @@ SOCIALACCOUNT_PROVIDERS = {
         },
     }
 }
+ACCOUNT_ADAPTER = "main.adapter.AccountAdapter"
