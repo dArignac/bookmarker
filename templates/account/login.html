@@ -1,0 +1,21 @@
+{% extends "../root.html" %}
+{% load i18n %}
+{% load allauth account socialaccount %}
+
+{% get_providers as socialaccount_providers %}
+
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+
+{% block content %}
+    <div class="ui container">
+        <div class="ui three column centered grid">
+            <div class="column">
+                {% trans "Sign in with one of the following providers:" %}
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                {% include "socialaccount/snippets/login_extra.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

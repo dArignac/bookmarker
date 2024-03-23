@@ -8,6 +8,7 @@ django = "==5.*"
 psycopg = "==3.*"
 django-allauth = "0.*"
 django-environ = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 

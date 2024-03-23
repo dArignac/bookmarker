@@ -24,3 +24,8 @@ Create a Google app following https://docs.allauth.org/en/latest/socialaccount/p
 Copy `.env.dist` to `.env` and fill the marked settings.
 
 Start Django with `python manage.py runserver` and reach the frontend at http://localhost:8000/.
+
+
+### Templates allauth
+
+Are at `/.local/share/virtualenvs/bookmarker-59kjtkyq/lib/python3.10/site-packages/allauth/templates`

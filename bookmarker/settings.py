@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -69,7 +71,7 @@ ROOT_URLCONF = "bookmarker.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -166,3 +168,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 ACCOUNT_ADAPTER = "main.adapter.AccountAdapter"
+
+# django-debug-toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
