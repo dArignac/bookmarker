@@ -28,6 +28,8 @@ jobs:
           pip --version
           pipenv --version
           pipenv install
+      - name: Copy environment
+        run: cp .env.dist .env
       - name: Run Tests
         run: |
           pipenv run python manage.py test
