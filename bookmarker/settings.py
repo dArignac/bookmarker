@@ -71,7 +71,7 @@ ROOT_URLCONF = "bookmarker.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "bookmarker" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -83,6 +83,8 @@ TEMPLATES = [
         },
     },
 ]
+
+STATICFILES_DIRS = [BASE_DIR / "bookmarker" / "static"]
 
 WSGI_APPLICATION = "bookmarker.wsgi.application"
 
