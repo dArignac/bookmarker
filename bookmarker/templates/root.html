@@ -13,38 +13,12 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
     <link rel="stylesheet" href="{% static 'bookmarker/styles.css' %}" />
-    {% comment %}
-    <meta name="description" content="" />
-
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="icon.png" />
-
-    <link rel="manifest" href="site.webmanifest" />
-    <meta name="theme-color" content="#fafafa" />
-    {% endcomment %}
   </head>
 
   <body>
-    <div class="ui container">
-      <div class="ui secondary menu">
-        <a class="active item"> Home </a>
-        <a class="item"> Messages </a>
-        <a class="item"> Friends </a>
-        <div class="right menu">
-          <div class="item">
-            <div class="ui icon input">
-              <input type="text" placeholder="Search..." />
-              <i class="search link icon"></i>
-            </div>
-          </div>
-          <a class="ui item"> Logout </a>
-        </div>
-      </div>
-    </div>
+    {% include "navigation.html" %}
 
-    {% block content %}{% endblock %} {% comment %}
-    <script src="js/app.js"></script>
-    {% endcomment %}
+    {% block content %}{% endblock %}
+    {% comment %}<script src="js/app.js"></script>{% endcomment %}
   </body>
 </html>
