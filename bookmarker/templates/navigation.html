@@ -1,14 +1,16 @@
+{% with request.resolver_match.view_name as view_name %}
 <div class="ui container">
   <div class="ui secondary menu">
-    <a class="item active" href="{% url "main_index" %}">Home</a>
+    <a class="item{% if view_name == "main_index"%} active{% endif %}" href="{% url "main_index" %}">Home</a>
     <a class="item" href="#">Links</a>
     <div class="right menu">
       {% if user.is_authenticated %}
-        {% comment %}FIXE style the accounts/logout.html template{% endcomment %}
+        {% comment %}FIXME style the accounts/logout.html template{% endcomment %}
         <a class="ui item" href="{% url "account_logout" %}">Logout</a>
       {% else %}
-        <a class="ui item" href="{% url "account_login" %}">Login</a>
+        <a class="ui item{% if view_name == "account_login" or view_name == "google_login" %} active{% endif %}" href="{% url "account_login" %}">Login</a>
       {% endif %}
     </div>
   </div>
 </div>
+{% endwith %}
