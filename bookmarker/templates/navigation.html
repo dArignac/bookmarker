@@ -2,7 +2,9 @@
 <div class="ui container">
   <div class="ui secondary menu">
     <a class="item{% if view_name == "main_index"%} active{% endif %}" href="{% url "main_index" %}">Home</a>
-    <a class="item" href="#">Links</a>
+    {% if user.is_authenticated %}
+      <a class="item{% if view_name == "bookmarks"%} active{% endif %}" href="{% url "bookmarks" %}">Bookmarks</a>
+    {% endif %}
     <div class="right menu">
       {% if user.is_authenticated %}
         {% comment %}FIXME style the accounts/logout.html template{% endcomment %}
