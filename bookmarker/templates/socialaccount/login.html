@@ -1,0 +1,26 @@
+{% extends "../root.html" %}
+{% comment %}FIXME can this be part of the login template already? View is google.views.oauth2_login{% endcomment %}
+
+{% load i18n %}
+{% load allauth %}
+
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+
+{% block content %}
+    <div class="ui container mt-20">
+        <div class="ui three column centered grid">
+            <div class="column">
+                {% element form method="post" no_visible_fields=True %}
+                    {% slot actions %}
+                        {% csrf_token %}
+                        {% element button type="submit" %}
+                            {% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}
+                        {% endelement %}
+                    {% endslot %}
+                {% endelement %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

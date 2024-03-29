@@ -1,9 +1,14 @@
 <div class="ui container">
   <div class="ui secondary menu">
-    <a class="item active" href="/">Home</a>
-    <a class="item" href="/links">Links</a>
+    <a class="item active" href="{% url "main_index" %}">Home</a>
+    <a class="item" href="#">Links</a>
     <div class="right menu">
-      <a class="ui item" href="/accounts/login">Login</a>
+      {% if user.is_authenticated %}
+        {% comment %}FIXE style the accounts/logout.html template{% endcomment %}
+        <a class="ui item" href="{% url "account_logout" %}">Logout</a>
+      {% else %}
+        <a class="ui item" href="{% url "account_login" %}">Login</a>
+      {% endif %}
     </div>
   </div>
 </div>
