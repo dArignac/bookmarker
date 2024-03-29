@@ -8,7 +8,7 @@
         {% comment %}FIXME style the accounts/logout.html template{% endcomment %}
         <a class="ui item" href="{% url "account_logout" %}">Logout</a>
       {% else %}
-        <a class="ui item{% if view_name == "account_login" or view_name == "google_login" %} active{% endif %}" href="{% url "account_login" %}">Login</a>
+        <a class="ui item{% if view_name == "account_login" or view_name == "google_login" %} active{% endif %}" href="{% url "google_login" %}">Login</a>
       {% endif %}
     </div>
   </div>

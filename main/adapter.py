@@ -10,3 +10,6 @@ class AccountAdapter(DefaultAccountAdapter):
     # disables the regular login (no effect on templates)
     def pre_authenticate(self, request, **credentials):
         raise ValidationError("Regular login is disabled")
+
+    def get_login_redirect_url(self, request):
+        return "/"
