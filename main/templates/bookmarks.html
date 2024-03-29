@@ -5,8 +5,19 @@
 {% block content %}
     <div class="ui container mt-20">
         <div class="ui grid container">
-            <div class="eleven wide computer sixteen wide tablet column">Listing</div>
-            <div class="right floated four wide computer sixteen wide tablet column">Creation Form</div>
+            <div class="eleven wide computer sixteen wide tablet column">
+                {% for bookmark in bookmarks %}
+                    {{bookmark.title}} - {{bookmark.url}}<br />
+                {% endfor %}
+            </div>
+
+            <div class="right floated four wide computer sixteen wide tablet column">
+                <form action="{% url "bookmarks"%}" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

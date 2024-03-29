@@ -5,7 +5,7 @@ from django.forms import ValidationError
 class AccountAdapter(DefaultAccountAdapter):
     # disables registration, see https://github.com/pennersr/django-allauth/issues/345
     def is_open_for_signup(self, request):
-        return False
+        return True
 
     # disables the regular login (no effect on templates)
     def pre_authenticate(self, request, **credentials):
