@@ -12,10 +12,10 @@
             </div>
 
             <div class="right floated four wide computer sixteen wide tablet column">
-                <form action="{% url "bookmarks"%}" method="post">
+                <form class="ui form {% if form.errors %}error{% else %}initial{% endif %}" action="{% url "bookmarks"%}" method="post">
                     {% csrf_token %}
                     {{ form }}
-                    <input type="submit" value="Submit">
+                    <input class="ui button" type="submit" value="Submit">
                 </form>
             </div>
         </div>
