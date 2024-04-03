@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==5.*"
-psycopg = "==3.*"
-django-allauth = "0.*"
+django = ">=5"
+psycopg = ">=3"
+django-allauth = ">=0"
 django-environ = "*"
 django-debug-toolbar = "*"
 
