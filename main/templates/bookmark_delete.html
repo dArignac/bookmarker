@@ -5,26 +5,35 @@
 {% block content %}
     <div class="ui container mt-20">
         <div class="ui grid container">
-            <div class="sixteen wide column">
-                <h3>Do you really want to delete the following bookmark?</h3>
-                {{ bookmark.title }}<br />
-                {{ bookmark.url }}
-            </div>
-            <div class="sixteen wide column">
-                <div class="ui grid container">
-                    <div class="seven wide column">
-                        <form action="{% url "bookmark_delete" bookmark.id %}" method="post">
-                            {% csrf_token %}
-                            <button class="ui button">Yes</button>
-                        </form>
-                    </div>
-                    <div class="seven wide column">
-                        <form action="{% url "bookmarks" %}">
-                           <button class="ui button">No</button>
-                        </form>
+            {% if bookmark %}
+                <div class="sixteen wide column">
+                    <h3>Do you really want to delete the following bookmark?</h3>
+                    {{ bookmark.title }}<br />
+                    {{ bookmark.url }}
+                </div>
+                <div class="sixteen wide column">
+                    <div class="ui grid container">
+                        <div class="seven wide column">
+                            <form action="{% url "bookmark_delete" bookmark.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="ui button">Yes</button>
+                            </form>
+                        </div>
+                        <div class="seven wide column">
+                            <form action="{% url "bookmarks" %}">
+                            <button class="ui button">No</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="sixteen wide column">
+                    <i class="exclamation circle icon colored red"></i> Bookmark was not found!
+                </div>
+                <div class="sixteen wide column">
+                    <a href="{% url "bookmarks" %}">Back to bookmarks list</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
