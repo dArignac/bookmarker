@@ -6,9 +6,20 @@
     <div class="ui container mt-20">
         <div class="ui grid container">
             <div class="eleven wide computer sixteen wide tablet column">
+                <div class="ui grid container">
                 {% for bookmark in bookmarks %}
-                    {{bookmark.title}} - {{bookmark.url}}<br />
+                    <!-- FIXME add tags -->
+                    <!-- FIXME add delete -->
+                    <div class="fourteen wide computer fourteen wide tablet column">
+                        <a href="{{bookmark.url}}">{{bookmark.title}}</a>
+                    </div>
+                    <div class="two wide computer two wide tablet column">
+                        <a href="{% url "bookmark_delete" bookmark.id %}">
+                            <i class="trash icon"></i>
+                        </a>
+                    </div>
                 {% endfor %}
+                </div>
             </div>
 
             <div class="right floated four wide computer sixteen wide tablet column">

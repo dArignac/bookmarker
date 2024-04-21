@@ -26,3 +26,16 @@ def bookmarks(request):
         form = BookmarkCreateForm()
 
     return render(request, "bookmarks.html", {"bookmarks": bookmarks, "form": form})
+
+
+@login_required
+def bookmark_delete(request, id):
+    # FIXME error handling
+    bookmark = Bookmark.objects.get(id=id)
+
+    if request.method == "POST":
+        success = bookmark.delete()
+        print(success)
+        return HttpResponseRedirect(reverse("bookmarks"))
+
+    return render(request, "bookmark_delete.html", {"bookmark": bookmark})
