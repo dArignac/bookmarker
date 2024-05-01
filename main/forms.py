@@ -8,4 +8,4 @@ class BookmarkCreateForm(ModelForm):
 
     class Meta:
         model = Bookmark
-        fields = ["title", "url"]
+        fields = ["title", "url", "tags"]
