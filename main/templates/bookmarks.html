@@ -1,4 +1,5 @@
 {% extends "root.html" %}
+{% load bookmarks %}
 
 {% block head_title %}Bookmarks{% endblock %}
 
@@ -9,7 +10,6 @@
                 <div class="ui grid container">
                 {% for bookmark in bookmarks %}
                     <!-- FIXME add tags -->
-                    <!-- FIXME add delete -->
                     <div class="fourteen wide computer fourteen wide tablet column">
                         <a href="{{bookmark.url}}">{{bookmark.title}}</a>
                     </div>
@@ -23,11 +23,7 @@
             </div>
 
             <div class="right floated four wide computer sixteen wide tablet column">
-                <form class="ui form {% if form.errors %}error{% else %}initial{% endif %}" action="{% url "bookmarks"%}" method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <input class="ui button" type="submit" value="Submit">
-                </form>
+                {% bookmark_add_form %}
             </div>
         </div>
     </div>

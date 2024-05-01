@@ -1,0 +1,5 @@
+<form class="ui form {% if form.errors %}error{% else %}initial{% endif %}" action="{% url "bookmarks"%}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input class="ui button" type="submit" value="Submit">
+</form>

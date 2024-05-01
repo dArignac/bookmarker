@@ -17,16 +17,13 @@ def index(request):
 def bookmarks(request):
     bookmarks = Bookmark.objects.all()[:10]
 
-    # FIXME move to templatetag
     if request.method == "POST":
         form = BookmarkCreateForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("bookmarks"))
-    else:
-        form = BookmarkCreateForm()
 
-    return render(request, "bookmarks.html", {"bookmarks": bookmarks, "form": form})
+    return render(request, "bookmarks.html", {"bookmarks": bookmarks, "form": None})
 
 
 @login_required
