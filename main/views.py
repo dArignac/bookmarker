@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import BookmarkCreateForm
-from .models import Bookmark
+from .models import Bookmark, Tag
 
 
 def index(request):
@@ -15,7 +15,7 @@ def index(request):
 
 @login_required
 def bookmarks(request):
-    bookmarks = Bookmark.objects.all()[:10]
+    bookmarks = Bookmark.objects.all()
 
     if request.method == "POST":
         form = BookmarkCreateForm(request.POST)
@@ -38,3 +38,9 @@ def bookmark_delete(request, id):
         return HttpResponseRedirect(reverse("bookmarks"))
 
     return render(request, "bookmark_delete.html", {"bookmark": bookmark})
+
+
+@login_required
+def tags(request):
+    tags = Tag.objects.all()
+    return render(request, "tags.html", {"tags": tags})

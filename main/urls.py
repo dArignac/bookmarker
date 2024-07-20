@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path("", views.index, name="main_index"),
     path("bookmarks", views.bookmarks, name="bookmarks"),
+    path("tags", views.tags, name="tags"),
     path(
         "bookmarks/delete/<id>",
         views.bookmark_delete,

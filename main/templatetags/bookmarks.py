@@ -14,5 +14,7 @@ def bookmark_add_form(context):
         form = BookmarkCreateForm()
 
     return render_to_string(
-        "bookmark_form_wrapper.html", {"form": form}, request=context["request"]
+        "bookmark_form_wrapper.html",
+        {"form": form, "url_name": "bookmarks"},
+        request=context["request"],
     )
