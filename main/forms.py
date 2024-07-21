@@ -1,10 +1,13 @@
 from django.forms import ModelForm
 
-from .models import Bookmark
+from .models import Bookmark, Tag
 
 
-class BookmarkCreateForm(ModelForm):
-    template_name = "bookmark_form.html"
+class GenericForm(ModelForm):
+    template_name = "generic_form.html"
+
+
+class BookmarkCreateForm(GenericForm):
     # FIXME this is maybe an alternative
     # tags = ModelMultipleChoiceField(
     #     queryset=Tag.objects.all(), required=False, widget=CheckboxSelectMultiple
@@ -17,3 +20,9 @@ class BookmarkCreateForm(ModelForm):
     class Meta:
         model = Bookmark
         fields = ["title", "url", "tags"]
+
+
+class TagCreateForm(GenericForm):
+    class Meta:
+        model = Tag
+        fields = ["title"]

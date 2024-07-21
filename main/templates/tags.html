@@ -1,5 +1,5 @@
 {% extends "root.html" %}
-{% load bookmarks %}
+{% load tags %}
 
 {% block head_title %}Tags{% endblock %}
 
@@ -22,7 +22,7 @@
             </div>
 
             <div class="right floated four wide computer sixteen wide tablet column">
-                TODO FORM
+                {% tag_add_form %}
             </div>
         </div>
     </div>

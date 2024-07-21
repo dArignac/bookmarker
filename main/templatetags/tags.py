@@ -1,20 +1,20 @@
 from django import template
 from django.template.loader import render_to_string
 
-from ..forms import BookmarkCreateForm
+from ..forms import TagCreateForm
 
 register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def bookmark_add_form(context):
+def tag_add_form(context):
     if context["request"].method == "POST":
-        form = BookmarkCreateForm(context["request"].POST)
+        form = TagCreateForm(context["request"].POST)
     else:
-        form = BookmarkCreateForm()
+        form = TagCreateForm()
 
     return render_to_string(
         "generic_form_wrapper.html",
-        {"form": form, "url_name": "bookmarks"},
+        {"form": form, "url_name": "tags"},
         request=context["request"],
     )
