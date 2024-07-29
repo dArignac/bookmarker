@@ -1,5 +1,7 @@
 django >= 5
-psycopg >=3
+psycopg[binary] >= 3
 django-allauth >= 0
 django-environ
 django-debug-toolbar
+requests
+jwt

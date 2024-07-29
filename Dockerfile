@@ -1,7 +1,7 @@
 FROM python:3.10-alpine AS builder
 
 RUN apk update && \
-    apk add --no-cache musl-dev libpq-dev gcc
+    apk add --no-cache musl-dev libpq-dev gcc postgresql-dev python3-dev build-base
 
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"

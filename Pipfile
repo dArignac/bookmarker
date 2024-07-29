@@ -5,10 +5,12 @@ name = "pypi"
 
 [packages]
 django = ">=5"
-psycopg = ">=3"
 django-allauth = ">=0"
 django-environ = "*"
 django-debug-toolbar = "*"
+requests = "*"
+psycopg = {extras = ["binary"], version = ">=3"}
+jwt = "*"
 
 [dev-packages]
 
