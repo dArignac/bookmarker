@@ -16,5 +16,8 @@ services:
 
   bookmarker:
     image: bookmarker
-    restart: never
+    build: .
+    restart: no
     env_file: ".env"
+    ports:
+      - "8000:8000"

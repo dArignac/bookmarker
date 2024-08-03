@@ -40,6 +40,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -87,20 +88,19 @@ TEMPLATES = [
 STATICFILES_DIRS = [BASE_DIR / "bookmarker" / "static"]
 
 WSGI_APPLICATION = "bookmarker.wsgi.application"
-
+ASGI_APPLICATION = "bookmarker.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# FIXME hardcoded for dev currently
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "bookmarker",
-        "USER": "bookmarker",
-        "PASSWORD": "bookmarker",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
     }
 }
 
