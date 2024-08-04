@@ -15,9 +15,18 @@ services:
       - 8080:8080
 
   bookmarker:
-    image: bookmarker
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.app
     restart: no
     env_file: ".env"
     ports:
       - "8000:8000"
+
+  bookmarker-static:
+    build:
+      context: .
+      dockerfile: Dockerfile.static
+    restart: no
+    ports:
+      - "8001:80"

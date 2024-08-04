@@ -5,3 +5,4 @@ django-environ
 django-debug-toolbar
 requests
 jwt
+daphne
