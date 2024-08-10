@@ -4,15 +4,13 @@ Naive bookmarking application bringing structure into the bookmarks chaos.
 
 ## Development
 
-Install with `pipenv install` (requires [pipenv](https://pipenv.pypa.io/en/latest/)).
+Create a virtualenv with `python -m venv .venv` and activate with `. .venv/bin/activate`.
 
 Copy `docker-compose.example.yml` to `docker-compose.override.yml` and adjust the values to your requirements.
 
-Start the database and adminer: `docker-compose up -d`.
+Start the database and adminer: `docker-compose up -d db && docker-compose up -d adminer`.
 
 Reach adminer at http://127.0.0.1:8080.
-
-Activate pipenv shell with `pipenv shell`.
 
 Apply database migrations with `python manage.py migrate`.
 

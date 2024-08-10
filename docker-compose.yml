@@ -18,7 +18,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.app
-    restart: no
+    restart: "no"
     env_file: ".env"
     ports:
       - "8000:8000"
@@ -27,6 +27,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.static
-    restart: no
+    restart: "no"
     ports:
       - "8001:80"
