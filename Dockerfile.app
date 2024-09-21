@@ -6,8 +6,6 @@ RUN apk update && \
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-RUN pip install daphne
-
 ADD requirements.txt .
 RUN pip install -r requirements.txt
 
@@ -17,8 +15,8 @@ RUN pip install -r requirements.txt
 
 
 FROM python:3.10-alpine
-RUN apk update && \
-    apk add --no-cache libpq-dev
+RUN apk update \
+    && apk add --no-cache libpq-dev
 
 COPY --from=builder /opt/venv /opt/venv
 
@@ -27,6 +25,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /srv
 
+ADD .env-docker .env
 ADD run.sh .
 ADD manage.py .
 ADD bookmarker ./bookmarker
