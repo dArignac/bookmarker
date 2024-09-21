@@ -6,7 +6,17 @@ urlpatterns = [
     path("", views.index, name="main_index"),
     path("bookmarks", views.bookmarks_list, name="bookmarks"),
     path(
-        "bookmarks/delete/<bookmark_id>",
+        "bookmarks/new",
+        views.bookmark_new,
+        name="bookmark_new",
+    ),
+    path(
+        "bookmarks/<bookmark_id>/edit",
+        views.bookmark_edit,
+        name="bookmark_edit",
+    ),
+    path(
+        "bookmarks/<bookmark_id>/delete",
         views.bookmark_delete,
         name="bookmark_delete",
     ),

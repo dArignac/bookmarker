@@ -1,5 +1,4 @@
 {% extends "root.html" %}
-{% load bookmarks %}
 
 {% block head_title %}Bookmarks{% endblock %}
 
@@ -14,6 +13,9 @@
                         <a href="{{bookmark.url}}" target="_blank">{{bookmark.title}}</a>
                     </div>
                     <div class="two wide computer two wide tablet column">
+                        <a href="{% url "bookmark_edit" bookmark.id %}">
+                            <i class="pen icon"></i>
+                        </a>
                         <a href="{% url "bookmark_delete" bookmark.id %}">
                             <i class="trash icon"></i>
                         </a>
@@ -23,7 +25,7 @@
             </div>
 
             <div class="right floated four wide computer sixteen wide tablet column">
-                {% bookmark_add_form %}
+                <a href="{% url "bookmark_new" %}" class="ui button">Add bookmark</a>
             </div>
         </div>
     </div>

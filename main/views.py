@@ -19,13 +19,39 @@ def index(request):
 def bookmarks_list(request):
     bookmarks = Bookmark.objects.all()
 
+    return render(request, "bookmarks.html", {"bookmarks": bookmarks, "form": None})
+
+
+@login_required
+@requires_csrf_token
+def bookmark_new(request):
     if request.method == "POST":
         form = BookmarkCreateForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("bookmarks"))
+    else:
+        form = BookmarkCreateForm()
 
-    return render(request, "bookmarks.html", {"bookmarks": bookmarks, "form": None})
+    return render(request, "bookmark_new.html", {"form": form})
+
+
+@login_required
+@requires_csrf_token
+def bookmark_edit(request, bookmark_id=None):
+    if bookmark_id is not None:
+        try:
+            bookmark = Bookmark.objects.get(id=bookmark_id)
+        except ObjectDoesNotExist:
+            bookmark = None
+
+    if request.method == "POST":
+        pass
+
+    if bookmark_id is None:
+        return render(request, "bookmark_new.html")
+
+    return render(request, "bookmark_edit.html", {"bookmark": bookmark})
 
 
 @login_required
