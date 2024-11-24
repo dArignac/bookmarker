@@ -25,7 +25,8 @@ jobs:
           python -m pip install --upgrade pip
           python --version
           pip --version
-          pip install -r requirements.txt
+          curl -sSL https://install.python-poetry.org | python3 -
+          poetry install
       - name: Copy environment
         run: cp .env.dist .env
       - name: Run Tests
