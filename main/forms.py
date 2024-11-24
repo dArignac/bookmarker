@@ -1,4 +1,7 @@
+from django import forms
 from django.forms import ModelForm
+
+from main.widgets import CustomSelect
 
 from .models import Bookmark, Tag
 
@@ -20,6 +23,21 @@ class BookmarkCreateForm(GenericForm):
     class Meta:
         model = Bookmark
         fields = ["title", "url", "tags"]
+        widgets = {
+            "title": forms.TextInput(
+                attrs={
+                    "class": "s-input",
+                    "placeholder": "Enter the title here",
+                }
+            ),
+            "url": forms.TextInput(
+                attrs={
+                    "class": "s-input",
+                    "placeholder": "Enter the URL here",
+                }
+            ),
+            "tags": CustomSelect(),
+        }
 
 
 class TagCreateForm(GenericForm):
