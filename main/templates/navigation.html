@@ -1,19 +1,38 @@
 {% with request.resolver_match.view_name as view_name %}
-<div class="ui container">
-  <div class="ui secondary menu">
-    <a class="item{% if view_name == "main_index"%} active{% endif %}" href="{% url "main_index" %}">Home</a>
-    {% if user.is_authenticated %}
-      <a class="item{% if view_name == "bookmarks"%} active{% endif %}" href="{% url "bookmarks" %}">Bookmarks</a>
-      <a class="item{% if view_name == "tags"%} active{% endif %}" href="{% url "tags" %}">Tags</a>
-    {% endif %}
-    <div class="right menu">
-      {% if user.is_authenticated %}
-        {% comment %}FIXME style the accounts/logout.html template{% endcomment %}
-        <a class="ui item" href="{% url "account_logout" %}">Logout</a>
-      {% else %}
-        <a class="ui item{% if view_name == "account_login" or view_name == "google_login" %} active{% endif %}" href="{% url "google_login" %}">Login</a>
-      {% endif %}
+  <header class="s-topbar">
+    <a href="#content" class="s-topbar--skip-link">Skip to main content</a>
+    <div class="s-topbar--container">
+
+      <nav aria-label="Bookmarker navigation">
+        <ol class="s-navigation">
+          <li><a href="{% url "main_index" %}" class="s-navigation--item{% if view_name == "main_index" %} is-selected{% endif %}">Home</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url "bookmarks" %}" class="s-navigation--item{% if view_name == "bookmarks" %} is-selected{% endif %}">Bookmarks</a></li>
+            <li><a href="{% url "tags" %}" class="s-navigation--item{% if view_name == "tags" %} is-selected{% endif %}">Tags</a></li>
+          {% endif %}
+        </ol>
+      </nav>
+
+      <form id="search" class="s-topbar--searchbar" autocomplete="off" role="search">
+        <div class="s-topbar--searchbar--input-group">
+          <input type="text" placeholder="Search…" value="" autocomplete="off" class="s-input s-input__search" />
+          {% comment %}remember that I added the search icon manually to the stacks-icon css file{% endcomment %}
+          <span class="svg-icon-bg iconSearch s-input-icon s-input-icon__search"></span>
+        </div>
+      </form>
+
+      <nav class="s-topbar--navigation" aria-label="Log in or sign up">
+        <ol class="s-topbar--content">
+          <li>
+            {% if user.is_authenticated %}
+              <a href="{% url "account_logout" %}" class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Log out</a>
+            {% else %}
+            <a href="{% url "google_login" %}" class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Log in</a>
+            {% endif %}
+          </li>
+        </ol>
+      </nav>
+
     </div>
-  </div>
-</div>
+  </header>
 {% endwith %}

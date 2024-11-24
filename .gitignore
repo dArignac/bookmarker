@@ -4,3 +4,4 @@ __pycache__
 .env-docker
 .idea
 .venv
+node_modules
