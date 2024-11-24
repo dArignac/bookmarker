@@ -3,6 +3,7 @@
 {% block head_title %}Bookmarks{% endblock %}
 
 {% block content %}
+{% comment %}
     <div class="ui container mt-20">
         <div class="ui grid container">
             <div class="eleven wide computer sixteen wide tablet column">
@@ -29,4 +30,23 @@
             </div>
         </div>
     </div>
+    {% endcomment %}
+<div class="d-flex mx-auto my12 w100 wmx12">
+  {# FIXME adjust responsive layout #}
+  <div id="content" class="d-grid g8 ji-center grid__12 lg:grid__12 md:grid__8 sm:grid__2">
+    {# FIXME check how many cols the bookmark shall span + responsive #}
+    {# tags below, edit on right #}
+    {% for bookmark in bookmarks %}
+      <div class="grid--col3 mx12 d-flex fd-column">
+        <a href="{{bookmark.url}}" target="_blank">{{ bookmark.title }}</a>
+        <div class="d-flex">
+          <span class="s-tag mr4">TODO cont</span>
+          <span class="s-tag">javascript</span>
+          <span class="s-tag">javascript</span>
+          <span class="s-tag">javascript</span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

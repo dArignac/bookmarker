@@ -19,6 +19,10 @@ def index(request):
 def bookmarks_list(request):
     bookmarks = Bookmark.objects.all()
 
+    # bookmarks = []
+    # for i in range(200):
+    #     bookmarks += [{id: i, "title": f"Title {i}", "url": "http://localhost:8000"}]
+
     return render(request, "bookmarks.html", {"bookmarks": bookmarks, "form": None})
 
 
