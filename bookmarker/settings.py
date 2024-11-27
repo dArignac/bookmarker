@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "oauth2_provider",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -142,3 +144,11 @@ STATIC_ROOT = env("STATIC_ROOT")
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "bookmarker.auth0.Auth0JSONWebTokenAuthentication",
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+}
