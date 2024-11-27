@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "oauth2_provider",
     "rest_framework",
+    "rest",
 ]
 
 MIDDLEWARE = [
@@ -152,3 +153,7 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
+
+AUTH0_PUBLIC_KEY = env.str("AUTH0_PUBLIC_KEY", multiline=True)
+AUTH0_AUDIENCE = env("AUTH0_AUDIENCE")
+AUTH0_DOMAIN = env("AUTH0_DOMAIN")
