@@ -1,10 +1,12 @@
+from django.conf import settings
 import firebase_admin
 from firebase_admin import auth, credentials
 from rest_framework.authentication import BaseAuthentication
 
 # init firebase project
-cred = credentials.Certificate("firebase-serviceaccount.json")
-firebase_admin.initialize_app(cred)
+if not settings.IS_CI:
+    cred = credentials.Certificate("firebase-serviceaccount.json")
+    firebase_admin.initialize_app(cred)
 
 
 def get_token_auth_header(request):
