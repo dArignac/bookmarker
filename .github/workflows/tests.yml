@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.10"]
 
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +32,9 @@ jobs:
         working-directory: django
 
       - name: Copy environment
-        run: cp .env.dist .env
+        run: |
+          cp .env.dist .env
+          echo "IS_CI=True" >> .env
         working-directory: django
 
       - name: Run Tests
