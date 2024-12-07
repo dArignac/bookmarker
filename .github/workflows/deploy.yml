@@ -26,8 +26,8 @@ jobs:
             const repoName = "${{ secrets.REPO_DEPLOYMENT_NAME }}";
 
             const payload = {
-              ref: "main",
-              inputs: {
+              event_type: "bookmarker",
+              client_payload: {
                 service: "${{ github.event.inputs.service }}",
                 version: "${{ github.event.inputs.version }}",
               },
