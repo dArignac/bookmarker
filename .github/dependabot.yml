@@ -1,10 +1,22 @@
 version: 2
 updates:
-  - package-ecosystem: "pipenv"
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "github-actions"
-      directory: ".github"
-      schedule:
-        interval: "weekly"
+    commit-message:
+      prefix: "chore(ci):"
+
+  - package-ecosystem: "npm"
+    directory: "/angular"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(ng):"
+
+  - package-ecosystem: "poetry"
+    directory: "/django"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(dj):"
