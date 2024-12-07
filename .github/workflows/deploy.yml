@@ -23,7 +23,7 @@ jobs:
           github-token: ${{ secrets.DEPLOYMENT_PAT }}
           script: |
             const repoOwner = "${{ secrets.REPO_DEPLOYMENT_OWNER }}";
-            const repoName = " ${{ secrets.REPO_DEPLOYMENT_NAME }}";
+            const repoName = "${{ secrets.REPO_DEPLOYMENT_NAME }}";
 
             const payload = {
               ref: "main",
