@@ -151,4 +151,7 @@ REST_FRAMEWORK = {
         "bookmarker.firebase_auth.FirebaseJWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
 }

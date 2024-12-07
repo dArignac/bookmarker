@@ -1,8 +1,16 @@
-from django.urls import path
+from rest_framework import routers
+
+from django.urls import include, path
 
 from . import views
 
+router = routers.DefaultRouter()
+router.register(r"bookmarks", views.BookmarkViewSet)
+router.register(r"tags", views.TagViewSet)
+
 urlpatterns = [
-    path("api/public", views.public),
-    path("api/private", views.private),
+    path("", include(router.urls)),
+    # FIXME remove
+    path("public", views.public),
+    path("private", views.private),
 ]
