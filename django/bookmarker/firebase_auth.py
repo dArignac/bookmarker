@@ -1,7 +1,8 @@
-from django.conf import settings
 import firebase_admin
+from django.conf import settings
 from firebase_admin import auth, credentials
 from rest_framework.authentication import BaseAuthentication
+from rest_framework.exceptions import AuthenticationFailed
 
 # init firebase project
 if not settings.IS_CI:
@@ -24,7 +25,11 @@ class FirebaseJWTAuthentication(BaseAuthentication):
         if not auth_header or not auth_header.startswith("Bearer "):
             return None
         token = auth_header.split(" ")[1]
-        payload = auth.verify_id_token(token)
+
+        try:
+            payload = auth.verify_id_token(token)
+        except Exception:
+            raise AuthenticationFailed(detail="Invalid token provided", code=1)
 
         user = self.get_or_create_user(payload)
         return (user, token)

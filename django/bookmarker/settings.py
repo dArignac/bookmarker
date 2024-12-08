@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 from environs import Env
@@ -22,7 +21,7 @@ env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-DEBUG = env.bool("DJANGO_DEBUG", default=False)
+DEBUG = env.bool("DEBUG", default=False)
 IS_CI = env.bool("IS_CI", default=False)
 
 # Quick-start development settings - unsuitable for production
@@ -32,7 +31,7 @@ IS_CI = env.bool("IS_CI", default=False)
 # FIXME just for dev
 SECRET_KEY = "django-insecure-_zt_8y$49d^v&aq@=0gl&705j*@k&6o+h*hddzuh)e0bmbo9j-"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]"]
 
 
 # Application definition
@@ -87,6 +86,7 @@ ASGI_APPLICATION = "bookmarker.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# FIXME use
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
