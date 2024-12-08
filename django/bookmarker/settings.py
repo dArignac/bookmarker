@@ -155,3 +155,5 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.JSONRenderer",
     ],
 }
+
+APPEND_SLASH = False

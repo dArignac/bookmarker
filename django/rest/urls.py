@@ -1,16 +1,11 @@
-from rest_framework import routers
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
-from django.urls import include, path
+from rest.views.bookmarks import BookmarkDetails, BookmarkList
 
-from . import views
-
-router = routers.DefaultRouter()
-router.register(r"bookmarks", views.BookmarkViewSet)
-router.register(r"tags", views.TagViewSet)
-
-urlpatterns = [
-    path("", include(router.urls)),
-    # FIXME remove
-    path("public", views.public),
-    path("private", views.private),
-]
+urlpatterns = format_suffix_patterns(
+    [
+        path("bookmarks", BookmarkList.as_view()),
+        path("bookmarks/<str:pk>", BookmarkDetails.as_view()),
+    ]
+)
