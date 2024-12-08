@@ -13,20 +13,17 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
-import environ
+from environs import Env
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(
-    DEBUG=(bool, False),
-    IS_CI=(bool, False),
-)
 
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-
-DEBUG = env("DEBUG")
-IS_CI = env("IS_CI")
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
+IS_CI = env.bool("IS_CI", default=False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -50,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest",
+    "drf_standardized_errors",
 ]
 
 MIDDLEWARE = [
@@ -154,6 +152,7 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
     ],
+    "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
 }
 
 APPEND_SLASH = False
