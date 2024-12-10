@@ -28,8 +28,7 @@ IS_CI = env.bool("IS_CI", default=False)
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# FIXME just for dev
-SECRET_KEY = "django-insecure-_zt_8y$49d^v&aq@=0gl&705j*@k&6o+h*hddzuh)e0bmbo9j-"
+SECRET_KEY = env.str("SECRET_KEY")
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]"]
 
