@@ -1,51 +1,17 @@
-from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import generics
 
 from rest.models import Bookmark
 from rest.serializers import BookmarkSerializer
 
 
-class BookmarkList(APIView):
-    """
-    List all snippets, or create a new snippet.
-    """
+class BookmarkList(generics.ListCreateAPIView):
+    queryset = Bookmark.objects.all()
+    serializer_class = BookmarkSerializer
 
-    def get(self, request, format=None):
-        snippets = Bookmark.objects.all()
-        serializer = BookmarkSerializer(snippets, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = BookmarkSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
-class BookmarkDetails(APIView):
-    def get_object(self, pk):
-        try:
-            return Bookmark.objects.get(pk=pk)
-        except Bookmark.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        serializer = BookmarkSerializer(snippet)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        serializer = BookmarkSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        snippet.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+class BookmarkDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Bookmark.objects.all()
+    serializer_class = BookmarkSerializer
