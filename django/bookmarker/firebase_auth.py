@@ -4,6 +4,8 @@ from firebase_admin import auth, credentials
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 
+from rest.error_codes import ERROR_CODE_INVALID_TOKEN
+
 # init firebase project
 if not settings.IS_CI:
     cred = credentials.Certificate("firebase-serviceaccount.json")
@@ -29,7 +31,9 @@ class FirebaseJWTAuthentication(BaseAuthentication):
         try:
             payload = auth.verify_id_token(token)
         except Exception:
-            raise AuthenticationFailed(detail="Invalid token provided", code=1)
+            raise AuthenticationFailed(
+                detail="Invalid token provided", code=ERROR_CODE_INVALID_TOKEN
+            )
 
         user = self.get_or_create_user(payload)
         return (user, token)

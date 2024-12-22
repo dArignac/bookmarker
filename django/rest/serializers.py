@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from rest.error_codes import ERROR_CODE_BOOKMARK_URL_EXISTS
+from rest.exceptions import Conflict
 from rest.models import Bookmark, Tag
 
 
@@ -17,6 +19,7 @@ class BookmarkSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         # Dynamically set the queryset for tag_ids based on the current user
         request = self.context.get("request")
         if request and request.user.is_authenticated:
@@ -24,7 +27,15 @@ class BookmarkSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         tag_ids = validated_data.pop("tag_ids", [])
-        # FIXME check for existing bookmarks first
+
+        existing_bookmarks = Bookmark.objects.filter(
+            url=validated_data["url"], user=validated_data["user"]
+        ).count()
+        if existing_bookmarks > 0:
+            raise Conflict(
+                detail="Bookmark already exists", code=ERROR_CODE_BOOKMARK_URL_EXISTS
+            )
+
         bookmark = Bookmark.objects.create(**validated_data)
         bookmark.tags.set(tag_ids)
         return bookmark

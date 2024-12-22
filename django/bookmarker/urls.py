@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from rest.exceptions import error_handler
+from rest.errors import error_handler
 
 handler400 = error_handler
 handler403 = error_handler
