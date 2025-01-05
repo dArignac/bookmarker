@@ -3,6 +3,7 @@ import { Auth, authState, GoogleAuthProvider, User } from '@angular/fire/auth';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { ApiService } from '../api.service';
 @Component({
   selector: 'app-navigation',
   imports: [RouterLink, RouterLinkActive],
@@ -10,13 +11,13 @@ import { AuthService } from '../auth.service';
   styleUrl: './navigation.component.scss',
 })
 export class NavigationComponent implements OnInit, OnDestroy {
-  authService = inject(AuthService);
+  serviceApi = inject(ApiService);
+  serviceAuth = inject(AuthService);
   auth = inject(Auth);
   googleProvider = new GoogleAuthProvider();
 
   user$ = authState(this.auth);
   userSubscription!: Subscription;
-  userIdToken: string | null = null;
 
   isLoggedIn: boolean = false;
 
@@ -26,7 +27,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
       if (this.isLoggedIn) {
         user.getIdToken().then((token) => {
-          this.userIdToken = token;
+          this.serviceApi.setAccessToken(token);
         });
       }
     });
@@ -37,10 +38,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   public login(): void {
-    this.authService.login();
+    this.serviceAuth.login();
   }
 
   public logout(): void {
-    this.authService.logout();
+    this.serviceAuth.logout();
   }
 }
