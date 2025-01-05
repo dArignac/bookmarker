@@ -18,6 +18,7 @@ requests = "^2.32.3"
 firebase-admin = "^6.6.0"
 drf-standardized-errors = "^0.14.1"
 environs = {extras = ["django"], version = "^11.2.1"}
+django-cors-headers = "^4.6.0"
 
 [build-system]
 requires = ["poetry-core"]
