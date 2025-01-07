@@ -22,11 +22,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
 
   ngOnInit() {
-    this.userSubscription = this.user$.subscribe((user: User) => {
+    this.userSubscription = this.user$.subscribe((user: User | null) => {
       this.isLoggedIn = user !== null;
 
       if (this.isLoggedIn) {
-        user.getIdToken().then((token) => {
+        user!.getIdToken().then((token) => {
           this.serviceApi.setAccessToken(token);
         });
       }

@@ -31,3 +31,9 @@ Reach adminer at http://127.0.0.1:8080.
 Apply database migrations with `python manage.py migrate`.
 
 Start Django with `poetry run python manage.py runserver`
+
+## Google Firebase
+
+Uses Firebase for authentication.
+
+Place the `firebase-serviceaccount.json` in the `django` folder. Get it from [Firebase](https://firebase.google.com/docs/admin/setup/#initialize_the_sdk_in_non-google_environments).
