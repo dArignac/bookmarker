@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, resource } from '@angular/core';
 import { Bookmark } from './models/Bookmark';
 import { environment } from '../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,18 +16,11 @@ export class ApiService {
     this.token = token;
   }
 
-  getBookmarks(): Bookmark[] {
-    this.http
-      .get<Bookmark[]>(`${environment.apiUrl}/bookmarks`, {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-        },
-      })
-      .subscribe((x) => {
-        // FIXME handle
-        console.log(x);
-      });
-
-    return [];
+  getBookmarks(): Observable<Bookmark[]> {
+    return this.http.get<Bookmark[]>(`${environment.apiUrl}/bookmarks`, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
   }
 }

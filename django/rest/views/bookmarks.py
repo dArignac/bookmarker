@@ -5,6 +5,7 @@ from rest.serializers import BookmarkSerializer
 
 
 class BookmarkList(generics.ListCreateAPIView):
+    # FIXME needs to filter by user
     queryset = Bookmark.objects.all()
     serializer_class = BookmarkSerializer
     permission_classes = [permissions.IsAuthenticated]
