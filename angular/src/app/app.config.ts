@@ -11,12 +11,12 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => {
-      const auth = getAuth();
-      // FIXME do we need it?
-      // connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
-      return auth;
-    }),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideAuth(() => {
+    //   const auth = getAuth();
+    //   // FIXME do we need it?
+    //   // connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+    //   return auth;
+    // }),
   ],
 };
