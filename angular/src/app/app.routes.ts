@@ -4,7 +4,6 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { HomeComponent } from './home/home.component';
 import { LoginRequiredComponent } from './login-required/login-required.component';
 import { TagsComponent } from './tags/tags.component';
-import { UserResolver } from './user.resolver';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo('/not-logged-in');
 
@@ -15,18 +14,20 @@ export const routes: Routes = [
     component: BookmarksComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
-    resolve: {
-      user: UserResolver,
-    },
+    // FIXME
+    // resolve: {
+    //   user: UserResolver,
+    // },
   },
   {
     path: 'tags',
     component: TagsComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
-    resolve: {
-      user: UserResolver,
-    },
+    // FIXME
+    // resolve: {
+    //   user: UserResolver,
+    // },
   },
   { path: 'not-logged-in', component: LoginRequiredComponent },
 ];

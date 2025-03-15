@@ -7,20 +7,10 @@ import { filter, map } from 'rxjs';
 })
 export class AuthService {
   auth = inject(Auth);
-  googleProvider = new GoogleAuthProvider();
-
-  user$ = authState(this.auth).pipe(
-    filter((user) => user !== null),
-    map((user) => user!)
-  );
 
   _isLoggedIn: boolean = false;
 
-  public login(): void {
-    signInWithPopup(this.auth, this.googleProvider);
-  }
+  public login(): void {}
 
-  public logout(): void {
-    signOut(this.auth);
-  }
+  public logout(): void {}
 }
