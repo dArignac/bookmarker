@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { User } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,7 +11,7 @@ export class BookmarksComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
 
   // FIXME necessary?
-  user: User = this.activatedRoute.snapshot.data['user'];
+  // user: User = this.activatedRoute.snapshot.data['user'];
 
   // bookmarksResource = resource({
   //   loader: () => firstValueFrom(this.serviceApi.getBookmarks()),
