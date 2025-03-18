@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SupabaseService } from '../supabase.service';
 
@@ -8,7 +8,7 @@ import { SupabaseService } from '../supabase.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   sbService = inject(SupabaseService);
   formBuilder = inject(FormBuilder);
 
@@ -17,7 +17,17 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
-  onSubmit() {
-    console.warn(this.loginForm.value);
+  ngOnInit() {
+    console.warn(this.sbService.user);
+  }
+
+  async onSubmit() {
+    if (this.loginForm.valid) {
+      //console.warn(this.loginForm.value);
+      await this.sbService.loginWithEmail(
+        this.loginForm.value.email!,
+        this.loginForm.value.password!
+      );
+    }
   }
 }
