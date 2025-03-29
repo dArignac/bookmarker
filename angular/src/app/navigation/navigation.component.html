@@ -13,7 +13,7 @@
             Home
           </a>
         </li>
-        @if(isLoggedIn) {
+        @if(isLoggedIn$ | async) {
         <li>
           <a routerLink="/bookmarks" routerLinkActive="is-selected" class="s-navigation--item">
             Bookmarks
@@ -42,12 +42,12 @@
     <nav class="s-topbar--navigation" aria-label="Log in">
       <ol class="s-topbar--content">
         <li>
-          @if(isLoggedIn) {
+          @if(isLoggedIn$ | async) {
           <a class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Add bookmark</a>
           }
         </li>
         <li>
-          @if(isLoggedIn) {
+          @if(isLoggedIn$ | async) {
           <a
             (click)="logout()"
             class="s-topbar--item ml4 s-topbar--item__unset s-btn s-btn__outlined"

@@ -11,11 +11,11 @@ import { SupabaseService } from './supabase.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  supabase = inject(SupabaseService);
+  // supabase = inject(SupabaseService);
   title = 'Bookmarker';
-  session = this.supabase.session;
+  // session = this.supabase.session;
 
   ngOnInit() {
-    this.supabase.authChanges((_, session) => (this.session = session));
+    // this.supabase.authChanges((_, session) => (this.session = session));
   }
 }
