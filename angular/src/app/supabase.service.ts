@@ -18,26 +18,30 @@ export class SupabaseService {
 
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
-    const { data } = this.supabase.auth.onAuthStateChange((event, session) => {
-      this._session = session;
-      if (event === 'INITIAL_SESSION') {
-        // handle initial session
-      } else if (event === 'SIGNED_IN') {
-        // handle sign in event
-        this.isLoggedInSubject.next(true);
-      } else if (event === 'SIGNED_OUT') {
-        // handle sign out event
-        this.isLoggedInSubject.next(false);
-      } else if (event === 'PASSWORD_RECOVERY') {
-        // handle password recovery event
-      } else if (event === 'TOKEN_REFRESHED') {
-        // handle token refreshed event
-      } else if (event === 'USER_UPDATED') {
-        // handle user updated event
+
+    this.supabase.auth.onAuthStateChange((event, session) => {
+      if (session != null) {
+        this._session = session;
+
+        if (event === 'INITIAL_SESSION') {
+          // handle initial session
+        } else if (event === 'SIGNED_IN') {
+          // handle sign in event
+          this.isLoggedInSubject.next(true);
+        } else if (event === 'SIGNED_OUT') {
+          // handle sign out event
+          this.isLoggedInSubject.next(false);
+        } else if (event === 'PASSWORD_RECOVERY') {
+          // handle password recovery event
+        } else if (event === 'TOKEN_REFRESHED') {
+          // handle token refreshed event
+        } else if (event === 'USER_UPDATED') {
+          // handle user updated event
+        }
+      } else {
+        console.log('No session.');
       }
     });
-    // FIXME remove
-    // data.subscription.unsubscribe();
   }
 
   // get session() {
@@ -50,7 +54,12 @@ export class SupabaseService {
 
   get user() {
     this.supabase.auth.getUser().then(({ data }) => {
-      this._user = data.user;
+      console.warn('getUser - who calls this :D', data);
+      if (data.user == null) {
+        this.isLoggedInSubject.next(false);
+      } else {
+        this._user = data.user;
+      }
     });
     return this._user;
   }
