@@ -1,8 +1,5 @@
-import { Component, inject, OnInit, resource } from '@angular/core';
-import { User } from '@angular/fire/auth';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../api.service';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-bookmarks',
@@ -12,13 +9,13 @@ import { firstValueFrom } from 'rxjs';
 })
 export class BookmarksComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
-  private serviceApi = inject(ApiService);
 
-  user: User = this.activatedRoute.snapshot.data['user'];
+  // FIXME necessary?
+  // user: User = this.activatedRoute.snapshot.data['user'];
 
-  bookmarksResource = resource({
-    loader: () => firstValueFrom(this.serviceApi.getBookmarks()),
-  });
+  // bookmarksResource = resource({
+  //   loader: () => firstValueFrom(this.serviceApi.getBookmarks()),
+  // });
 
   ngOnInit(): void {
     // TODO remove?

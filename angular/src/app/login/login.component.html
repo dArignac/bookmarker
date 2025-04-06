@@ -1,0 +1,27 @@
+<div class="d-flex flex__center">
+  <div class="flex--item4">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="d-flex gy4 fd-column mb6">
+        <label class="s-label" for="email">Email</label>
+        <input formControlName="email" class="s-input" id="email" type="text" />
+      </div>
+
+      <div class="d-flex gy4 fd-column mb24">
+        <label class="s-label" for="password">Password</label>
+        <input formControlName="password" class="s-input" id="password" type="password" />
+      </div>
+
+      <div class="d-flex gy4 fd-column">
+        <button
+          class="s-btn s-btn__filled"
+          type="submit"
+          [disabled]="!loginForm.valid || isLoading"
+        >
+          @if (isLoading) {
+          <div class="is-loading">Loading…</div>
+          } @else { Log in }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

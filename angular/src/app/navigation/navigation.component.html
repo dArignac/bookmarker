@@ -1,4 +1,4 @@
-<header class="s-topbar">
+<header class="s-topbar mb12">
   <a href="#content" class="s-topbar--skip-link">Skip to main content</a>
   <div class="s-topbar--container">
     <nav aria-label="Bookmarker navigation">
@@ -13,7 +13,12 @@
             Home
           </a>
         </li>
-        @if(isLoggedIn) {
+        @if(isLoggedIn$ | async) {
+        <li>
+          <a routerLink="/profiles" routerLinkActive="is-selected" class="s-navigation--item">
+            Profiles
+          </a>
+        </li>
         <li>
           <a routerLink="/bookmarks" routerLinkActive="is-selected" class="s-navigation--item">
             Bookmarks
@@ -42,12 +47,17 @@
     <nav class="s-topbar--navigation" aria-label="Log in">
       <ol class="s-topbar--content">
         <li>
-          @if(isLoggedIn) {
-          <a class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Add bookmark</a>
+          @if(isLoggedIn$ | async) {
+          <!-- <a class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Add bookmark</a> -->
+          <div class="s-topbar--item s-topbar--item__unset flex--item s-select ml4">
+            <select id="select-menu">
+              <option value="" selected>No profiles</option>
+            </select>
+          </div>
           }
         </li>
         <li>
-          @if(isLoggedIn) {
+          @if(isLoggedIn$ | async) {
           <a
             (click)="logout()"
             class="s-topbar--item ml4 s-topbar--item__unset s-btn s-btn__outlined"
@@ -55,7 +65,7 @@
             Log out
           </a>
           } @else {
-          <a (click)="login()" class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
+          <a routerLink="/login" class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
             Log in
           </a>
           }

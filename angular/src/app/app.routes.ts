@@ -1,20 +1,27 @@
-import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { HomeComponent } from './home/home.component';
 import { LoginRequiredComponent } from './login-required/login-required.component';
+import { LoginComponent } from './login/login.component';
+import { ProfilesComponent } from './profiles/profiles.component';
 import { TagsComponent } from './tags/tags.component';
 import { UserResolver } from './user.resolver';
-
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo('/not-logged-in');
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   {
+    path: 'profiles',
+    component: ProfilesComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      user: UserResolver,
+    },
+  },
+  {
     path: 'bookmarks',
     component: BookmarksComponent,
     canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
     resolve: {
       user: UserResolver,
     },
@@ -23,10 +30,10 @@ export const routes: Routes = [
     path: 'tags',
     component: TagsComponent,
     canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
     resolve: {
       user: UserResolver,
     },
   },
+  { path: 'login', component: LoginComponent },
   { path: 'not-logged-in', component: LoginRequiredComponent },
 ];

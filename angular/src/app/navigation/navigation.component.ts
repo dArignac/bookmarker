@@ -1,47 +1,23 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Auth, authState, GoogleAuthProvider, User } from '@angular/fire/auth';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { SupabaseService } from '../supabase.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { ApiService } from '../api.service';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-navigation',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
 })
 export class NavigationComponent implements OnInit, OnDestroy {
-  serviceApi = inject(ApiService);
-  serviceAuth = inject(AuthService);
-  auth = inject(Auth);
-  googleProvider = new GoogleAuthProvider();
+  sbService = inject(SupabaseService);
+  isLoggedIn$ = this.sbService.isLoggedIn$;
 
-  user$ = authState(this.auth);
-  userSubscription!: Subscription;
+  ngOnInit() {}
 
-  isLoggedIn: boolean = false;
+  ngOnDestroy() {}
 
-  ngOnInit() {
-    this.userSubscription = this.user$.subscribe((user: User | null) => {
-      this.isLoggedIn = user !== null;
-
-      if (this.isLoggedIn) {
-        user!.getIdToken().then((token) => {
-          this.serviceApi.setAccessToken(token);
-        });
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.userSubscription.unsubscribe();
-  }
-
-  public login(): void {
-    this.serviceAuth.login();
-  }
-
-  public logout(): void {
-    this.serviceAuth.logout();
+  public async logout(): Promise<void> {
+    await this.sbService.logout();
   }
 }
