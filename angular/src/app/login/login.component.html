@@ -12,8 +12,14 @@
       </div>
 
       <div class="d-flex gy4 fd-column">
-        <button class="s-btn s-btn__filled" type="submit" [disabled]="!loginForm.valid">
-          Log In
+        <button
+          class="s-btn s-btn__filled"
+          type="submit"
+          [disabled]="!loginForm.valid || isLoading"
+        >
+          @if (isLoading) {
+          <div class="is-loading">Loading…</div>
+          } @else { Log in }
         </button>
       </div>
     </form>

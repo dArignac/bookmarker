@@ -17,12 +17,19 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
+  isLoading = false; // New property to track loading state
+
   async onSubmit() {
     if (this.loginForm.valid) {
-      await this.sbService.loginWithEmail(
-        this.loginForm.value.email!,
-        this.loginForm.value.password!
-      );
+      this.isLoading = true; // Start loading
+      try {
+        await this.sbService.loginWithEmail(
+          this.loginForm.value.email!,
+          this.loginForm.value.password!
+        );
+      } finally {
+        this.isLoading = false; // Stop loading
+      }
     }
   }
 }
