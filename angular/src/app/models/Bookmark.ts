@@ -1,3 +1,4 @@
+import { User } from '@supabase/supabase-js';
 import { Tag } from './Tag';
 
 export interface Bookmark {
@@ -5,5 +6,6 @@ export interface Bookmark {
   title: string;
   url: string;
   date_creation: Date;
+  owner: User;
   tags: Tag[];
 }

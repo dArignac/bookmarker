@@ -15,6 +15,11 @@
         </li>
         @if(isLoggedIn$ | async) {
         <li>
+          <a routerLink="/profiles" routerLinkActive="is-selected" class="s-navigation--item">
+            Profiles
+          </a>
+        </li>
+        <li>
           <a routerLink="/bookmarks" routerLinkActive="is-selected" class="s-navigation--item">
             Bookmarks
           </a>
@@ -43,7 +48,12 @@
       <ol class="s-topbar--content">
         <li>
           @if(isLoggedIn$ | async) {
-          <a class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Add bookmark</a>
+          <!-- <a class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Add bookmark</a> -->
+          <div class="s-topbar--item s-topbar--item__unset flex--item s-select ml4">
+            <select id="select-menu">
+              <option value="" selected>No profiles</option>
+            </select>
+          </div>
           }
         </li>
         <li>

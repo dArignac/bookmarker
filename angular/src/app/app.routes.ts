@@ -5,12 +5,23 @@ import { LoginRequiredComponent } from './login-required/login-required.componen
 import { TagsComponent } from './tags/tags.component';
 import { UserResolver } from './user.resolver';
 import { LoginComponent } from './login/login.component';
+import { ProfilesComponent } from './profiles/profiles.component';
 
 // TODO check if needed with Supabase
 // const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo('/not-logged-in');
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  {
+    path: 'profiles',
+    component: ProfilesComponent,
+    // TODO guard
+    // canActivate: [AuthGuard],
+    // data: { authGuardPipe: redirectUnauthorizedToLogin },
+    resolve: {
+      user: UserResolver,
+    },
+  },
   {
     path: 'bookmarks',
     component: BookmarksComponent,

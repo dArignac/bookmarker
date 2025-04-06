@@ -54,7 +54,6 @@ export class SupabaseService {
 
   get user() {
     this.supabase.auth.getUser().then(({ data }) => {
-      console.warn('getUser - who calls this :D', data);
       if (data.user == null) {
         this.isLoggedInSubject.next(false);
       } else {
