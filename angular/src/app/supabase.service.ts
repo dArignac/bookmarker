@@ -63,6 +63,14 @@ export class SupabaseService {
     return this._user;
   }
 
+  /**
+   * This is needed to be able to check for the user in the AuthGuard.
+   * @returns { data: { user: User | null }, error: Error | null }
+   */
+  async getUser() {
+    return await this.supabase.auth.getUser();
+  }
+
   async loginWithEmail(email: string, password: string) {
     const { data, error } = await this.supabase.auth.signInWithPassword({
       email,

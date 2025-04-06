@@ -1,23 +1,19 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { HomeComponent } from './home/home.component';
 import { LoginRequiredComponent } from './login-required/login-required.component';
-import { TagsComponent } from './tags/tags.component';
-import { UserResolver } from './user.resolver';
 import { LoginComponent } from './login/login.component';
 import { ProfilesComponent } from './profiles/profiles.component';
-
-// TODO check if needed with Supabase
-// const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo('/not-logged-in');
+import { TagsComponent } from './tags/tags.component';
+import { UserResolver } from './user.resolver';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 'profiles',
     component: ProfilesComponent,
-    // TODO guard
-    // canActivate: [AuthGuard],
-    // data: { authGuardPipe: redirectUnauthorizedToLogin },
+    canActivate: [AuthGuard],
     resolve: {
       user: UserResolver,
     },
@@ -25,9 +21,7 @@ export const routes: Routes = [
   {
     path: 'bookmarks',
     component: BookmarksComponent,
-    // TODO guard
-    // canActivate: [AuthGuard],
-    // data: { authGuardPipe: redirectUnauthorizedToLogin },
+    canActivate: [AuthGuard],
     resolve: {
       user: UserResolver,
     },
@@ -35,9 +29,7 @@ export const routes: Routes = [
   {
     path: 'tags',
     component: TagsComponent,
-    // TODO guard
-    // canActivate: [AuthGuard],
-    // data: { authGuardPipe: redirectUnauthorizedToLogin },
+    canActivate: [AuthGuard],
     resolve: {
       user: UserResolver,
     },
