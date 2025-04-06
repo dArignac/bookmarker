@@ -85,8 +85,10 @@ export class SupabaseService {
       // FIXME handle error
       console.error(error);
     } else {
+      this.isLoggedInSubject.next(false);
       this._session = null;
       this._user = null;
+      this.router.navigate(['/']);
     }
   }
 
