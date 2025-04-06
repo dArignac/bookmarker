@@ -1,5 +1,0 @@
-.github
-.idea
-.vscode
-docker-compose*
-node_modules
