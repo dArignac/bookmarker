@@ -11,11 +11,7 @@ import { ToastContainerComponent } from './toast-container/toast-container.compo
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  // supabase = inject(SupabaseService);
   title = 'Bookmarker';
-  // session = this.supabase.session;
 
-  ngOnInit() {
-    // this.supabase.authChanges((_, session) => (this.session = session));
-  }
+  ngOnInit() {}
 }
