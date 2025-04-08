@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthSession, createClient, SupabaseClient, User } from '@supabase/supabase-js';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../environments/environment';
-import { Router } from '@angular/router';
+import { Database } from './database.types';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class SupabaseService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor() {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+    this.supabase = createClient<Database>(environment.supabaseUrl, environment.supabaseKey);
 
     this.supabase.auth.onAuthStateChange((event, session) => {
       if (session != null) {
@@ -69,6 +70,10 @@ export class SupabaseService {
    */
   async getUser() {
     return await this.supabase.auth.getUser();
+  }
+
+  get instance(): SupabaseClient {
+    return this.supabase;
   }
 
   async loginWithEmail(email: string, password: string) {
