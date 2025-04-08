@@ -1,0 +1,22 @@
+<div style="position: fixed; top: 1rem; right: 1rem; z-index: 6000;">
+    @for (toast of (toasts$ | async); track toast.id) {
+    <ng-container>
+        <div class="s-toast ps-static mb8" aria-hidden="false" role="presentation">
+            <div class="s-notice {{ getClass(toast.type) }} d-flex ai-center gx16 jc-space-between p8 pl16 wmn4"
+                role="status">
+                <p class="m0">
+                    {{ toast.message }}
+                </p>
+                <div class="d-flex">
+                    <button type="button" class="s-btn s-notice--btn" (click)="dismiss(toast.id)">
+                        <svg aria-hidden="true" class="svg-icon iconClearSm" width="14" height="14" viewBox="0 0 14 14">
+                            <path
+                                d="M12 3.41 10.59 2 7 5.59 3.41 2 2 3.41 5.59 7 2 10.59 3.41 12 7 8.41 10.59 12 12 10.59 8.41 7z">
+                            </path>
+                        </svg></button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    }
+</div>

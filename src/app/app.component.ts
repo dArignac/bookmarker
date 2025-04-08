@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
-import { SupabaseService } from './supabase.service';
+import { ToastContainerComponent } from './toast-container/toast-container.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, NavigationComponent, RouterOutlet],
+  imports: [CommonModule, NavigationComponent, RouterOutlet, ToastContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

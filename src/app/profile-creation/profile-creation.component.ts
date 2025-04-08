@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SupabaseService } from '../supabase.service';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-profile-creation',
@@ -11,6 +12,7 @@ import { SupabaseService } from '../supabase.service';
 export class ProfileCreationComponent {
   sbService = inject(SupabaseService);
   formBuilder = inject(FormBuilder);
+  toastService = inject(ToastService);
 
   form = this.formBuilder.group({
     name: ['', Validators.required],
@@ -31,5 +33,9 @@ export class ProfileCreationComponent {
         this.isLoading = false; // Stop loading
       }
     }
+  }
+
+  showToast() {
+    this.toastService.showToast('Lorem Ipsum', 'error');
   }
 }

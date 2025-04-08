@@ -13,6 +13,25 @@
                     } @else { Create Profile }
                 </button>
             </div>
+
+            <button (click)="showToast()">Test</button>
         </form>
     </div>
+</div>
+
+<div role="alertdialog" id="example-toast" class="s-toast" aria-hidden="true" aria-labelledby="toast-message"
+    data-controller="s-toast" data-s-toast-target="toast">
+    <aside class="s-notice d-flex ai-center gx16 jc-space-between p8 pl16 wmn4">
+        <div id="notice-message">
+            Toast notice message with an undo button
+        </div>
+        <div class="d-flex">
+            <button type="button" class="s-btn s-notice--btn">
+                Undo
+            </button>
+            <button type="button" class="s-btn s-notice--btn" aria-label="Dismiss">
+                XXX
+            </button>
+        </div>
+    </aside>
 </div>
