@@ -24,18 +24,19 @@ export class ProfileCreationComponent {
     if (this.form.valid) {
       this.isLoading = true; // Start loading
       try {
-        const { error } = await this.sbService.instance
-          .from('profiles')
-          .insert({ name: this.form.value.name, user_id: this.sbService.user!.id });
-        console.warn('error', error); // FIXME error handling
-        this.form.reset(); // Reset the form after successful submission
+        const { error } = await this.sbService.instance.from('profiles').insert({ name: this.form.value.name, user_id: this.sbService.user!.id });
+        if (error == null) {
+          this.form.reset(); // Reset the form after successful submission
+        } else {
+          this.showToast(error.details);
+        }
       } finally {
         this.isLoading = false; // Stop loading
       }
     }
   }
 
-  showToast() {
-    this.toastService.showToast('Lorem Ipsum', 'error');
+  showToast(errorMessage: string) {
+    this.toastService.showToast(errorMessage, 'error');
   }
 }
