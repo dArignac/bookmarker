@@ -28,15 +28,11 @@ export class ProfileCreationComponent {
         if (error == null) {
           this.form.reset(); // Reset the form after successful submission
         } else {
-          this.showToast(error.details);
+          this.toastService.showToast(error.details, 'error');
         }
       } finally {
         this.isLoading = false; // Stop loading
       }
     }
-  }
-
-  showToast(errorMessage: string) {
-    this.toastService.showToast(errorMessage, 'error');
   }
 }
