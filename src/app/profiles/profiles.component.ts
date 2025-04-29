@@ -63,7 +63,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectProfileForEdit(prodileId: string) {
-    this.selectedProfileId = prodileId;
+  selectProfileForEdit(profileId: string) {
+    this.selectedProfileId = profileId;
   }
 }
