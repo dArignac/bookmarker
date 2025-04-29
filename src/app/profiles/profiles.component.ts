@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { PostgrestError } from '@supabase/supabase-js';
 import { ProfileCreationComponent } from '../profile-creation/profile-creation.component';
 import { SupabaseService } from '../supabase.service';
 import { ToastService } from '../toast.service';
-import { Tables } from '../database.types';
-import { PostgrestError } from '@supabase/supabase-js';
+import { Profile } from '../types';
 
 @Component({
   selector: 'app-profiles',
@@ -14,15 +14,31 @@ import { PostgrestError } from '@supabase/supabase-js';
 export class ProfilesComponent implements OnInit {
   sbService = inject(SupabaseService);
   toastService = inject(ToastService);
+  cdr = inject(ChangeDetectorRef);
 
-  profiles: Tables<'profiles'>[] = [];
+  private _profiles: Profile[] = [];
+
+  get profiles(): Profile[] {
+    return this._profiles;
+  }
+
+  selectedProfileId = '';
 
   async ngOnInit(): Promise<void> {
-    const { data, error }: { data: Tables<'profiles'>[] | null; error: PostgrestError | null } = await this.sbService.instance.from('profiles').select();
-    if (error == null && data != null) {
-      this.profiles = data;
+    const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.sbService.instance.from('profiles').select('id,name');
+    if (error === null) {
+      if (data !== null) {
+        this._profiles = data;
+        this.cdr.detectChanges(); // Trigger change detection
+      } else {
+        this.toastService.showToast('No profile data was returned.', 'info');
+      }
     } else {
       this.toastService.showToast(error!.message, 'error');
     }
+  }
+
+  selectProfileForEdit(prodileId: string) {
+    this.selectedProfileId = prodileId;
   }
 }

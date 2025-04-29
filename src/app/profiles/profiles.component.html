@@ -2,10 +2,12 @@
     <div class="grid--item grid--col2 d-grid grid__2 m8">
         @for (profile of profiles; track profile.id) {
         <div class="grid-item">{{ profile.name }}</div>
-        <div class="grid-item s-btn">Edit</div>
+        <div class="grid-item s-btn" (click)="selectProfileForEdit(profile.id)">Edit</div>
+        } @empty {
+        <div class="grid-item grid__2">No profiles found.</div>
         }
     </div>
     <div class="grid--item">
-        <app-profile-creation></app-profile-creation>
+        <app-profile-creation [passedEditId]="selectedProfileId"></app-profile-creation>
     </div>
 </div>
