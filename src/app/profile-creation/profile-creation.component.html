@@ -10,7 +10,13 @@
                 <button class="s-btn s-btn__filled" type="submit" [disabled]="!form.valid || isLoading">
                     @if (isLoading) {
                     <div class="is-loading">Saving...</div>
-                    } @else { Create Profile }
+                    } @else {
+                    @if(profileInEdit === null) {
+                    Create Profile
+                    } @else {
+                    Update Profile
+                    }
+                    }
                 </button>
             </div>
         </form>

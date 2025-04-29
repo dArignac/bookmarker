@@ -41,6 +41,7 @@ export class ProfileCreationComponent {
                 this.toastService.showToast('Requested profile returned more than one profile!', 'error');
               } else {
                 this.profileInEdit = data[0];
+                this.form.patchValue({ name: this.profileInEdit.name }); // Populate the name field
               }
             }
           } else {
@@ -54,16 +55,39 @@ export class ProfileCreationComponent {
   async onSubmit() {
     if (this.form.valid) {
       this.isLoading = true; // Start loading
+
       try {
-        const { error } = await this.sbService.instance.from('profiles').insert({ name: this.form.value.name, user_id: this.sbService.user!.id });
-        if (error == null) {
-          this.form.reset(); // Reset the form after successful submission
+        // distinguish between updating and creating
+        if (this.profileInEdit === null) {
+          await this.createProfile();
         } else {
-          this.toastService.showToast(error.details, 'error');
+          await this.updateProfile();
         }
       } finally {
         this.isLoading = false; // Stop loading
       }
+    }
+  }
+
+  async createProfile() {
+    const { error } = await this.sbService.instance.from('profiles').insert({ name: this.form.value.name, user_id: this.sbService.user!.id });
+    if (error == null) {
+      this.form.reset(); // Reset the form after successful submission
+    } else {
+      this.toastService.showToast(error.details, 'error');
+    }
+  }
+
+  async updateProfile() {
+    if (this.profileInEdit !== null) {
+      const { error } = await this.sbService.instance.from('profiles').update({ name: this.form.value.name }).eq('id', this.profileInEdit.id);
+      if (error == null) {
+        this.form.reset(); // Reset the form after successful submission
+      } else {
+        this.toastService.showToast(error.details, 'error');
+      }
+    } else {
+      this.toastService.showToast('Unable to update the profile!', 'error');
     }
   }
 }

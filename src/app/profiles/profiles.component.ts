@@ -24,8 +24,9 @@ export class ProfilesComponent implements OnInit {
 
   selectedProfileId = '';
 
+  // FIXME should auto update with supabase events or so
   async ngOnInit(): Promise<void> {
-    const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.sbService.instance.from('profiles').select('id,name');
+    const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.sbService.instance.from('profiles').select('id,name').order('name', { ascending: true });
     if (error === null) {
       if (data !== null) {
         this._profiles = data;
