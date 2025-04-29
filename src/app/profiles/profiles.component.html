@@ -1,5 +1,10 @@
 <div class="d-grid grid__3 m12">
-    <div class="grid--item grid--col2">TODO profile list </div>
+    <div class="grid--item grid--col2 d-grid grid__2 m8">
+        @for (profile of profiles; track profile.id) {
+        <div class="grid-item">{{ profile.name }}</div>
+        <div class="grid-item s-btn">Edit</div>
+        }
+    </div>
     <div class="grid--item">
         <app-profile-creation></app-profile-creation>
     </div>
