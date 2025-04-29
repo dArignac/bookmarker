@@ -1,0 +1,24 @@
+<div class="d-flex">
+    <div class="flex--item12">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="d-flex gy4 fd-column mb6">
+                <label class="s-label" for="email">Profile Name</label>
+                <input formControlName="name" class="s-input" id="name" type="text" />
+            </div>
+
+            <div class="d-flex gy4 fd-column">
+                <button class="s-btn s-btn__filled" type="submit" [disabled]="!form.valid || isLoading">
+                    @if (isLoading) {
+                    <div class="is-loading">Saving...</div>
+                    } @else {
+                    @if(profileInEdit === null) {
+                    Create Profile
+                    } @else {
+                    Update Profile
+                    }
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

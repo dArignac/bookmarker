@@ -6,6 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "supabase": "supabase",
+    "sb:gentypes": "supabase gen types typescript --project-id ",
     "test": "ng test"
   },
   "private": true,
@@ -36,6 +38,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "supabase": "^2.20.12",
     "typescript": "~5.8.2"
   }
 }
