@@ -83,6 +83,7 @@ export class ProfileCreationComponent {
       const { error } = await this.sbService.instance.from('profiles').update({ name: this.form.value.name }).eq('id', this.profileInEdit.id);
       if (error == null) {
         this.form.reset(); // Reset the form after successful submission
+        this.profileInEdit = null;
       } else {
         this.toastService.showToast(error.details, 'error');
       }
