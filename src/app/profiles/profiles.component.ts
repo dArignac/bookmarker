@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { PostgrestError, RealtimeChannel } from '@supabase/supabase-js';
 import { ProfileCreationComponent } from '../profile-creation/profile-creation.component';
@@ -7,7 +8,7 @@ import { Profile } from '../types';
 
 @Component({
   selector: 'app-profiles',
-  imports: [ProfileCreationComponent],
+  imports: [CommonModule, ProfileCreationComponent],
   templateUrl: './profiles.component.html',
   styleUrl: './profiles.component.scss',
 })

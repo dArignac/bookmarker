@@ -1,11 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ProfileSelectionComponent } from '../profile-selection/profile-selection.component';
 import { SupabaseService } from '../supabase.service';
-import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-navigation',
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, ProfileSelectionComponent],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
 })

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ToastContainerComponent } from './toast-container/toast-container.component';
@@ -10,8 +10,6 @@ import { ToastContainerComponent } from './toast-container/toast-container.compo
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Bookmarker';
-
-  ngOnInit() {}
 }
