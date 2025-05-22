@@ -18,6 +18,7 @@ export const routes: Routes = [
       user: UserResolver,
     },
   },
+  // FIXME adjust path with parameters
   {
     path: 'bookmarks',
     component: BookmarksComponent,
@@ -26,6 +27,7 @@ export const routes: Routes = [
       user: UserResolver,
     },
   },
+  // FIXME adjust path with parameters
   {
     path: 'tags',
     component: TagsComponent,

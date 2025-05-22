@@ -1,6 +1,6 @@
 <div class="d-grid grid__3 m12">
     <div class="grid--item grid--col2 d-grid grid__2 m8">
-        @for (profile of profiles; track profile.id) {
+        @for (profile of profiles$ | async; track profile.id) {
         <div class="grid-item">{{ profile.name }}</div>
         <div class="grid-item s-btn" (click)="selectProfileForEdit(profile.id)">Edit</div>
         } @empty {

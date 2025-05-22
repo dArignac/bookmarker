@@ -1,7 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, dematerialize } from 'rxjs';
 import { SupabaseService } from './supabase.service';
 import { Profile } from './types';
+import { PostgrestError } from '@supabase/supabase-js';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +23,11 @@ export class ProfilesService {
   // TODO do we need it?
   setCurrentProfile(profile: Profile) {
     this.selectedProfile.set(profile);
+  }
+
+  // TODO need to connect to the event stream to manipulate the state when profiles have been added, removed or changed
+  async loadProfiles() {
+    const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.sbService.instance.from('profiles').select('id,name').order('name', { ascending: true });
+    return { data, error };
   }
 }

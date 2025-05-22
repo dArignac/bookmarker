@@ -5,6 +5,7 @@ import { ProfileCreationComponent } from '../profile-creation/profile-creation.c
 import { SupabaseService } from '../supabase.service';
 import { ToastService } from '../toast.service';
 import { Profile } from '../types';
+import { GLOBAL_RX_STATE } from '../state';
 
 @Component({
   selector: 'app-profiles',
@@ -17,52 +18,55 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   toastService = inject(ToastService);
   cdr = inject(ChangeDetectorRef);
 
-  private _profiles: Profile[] = [];
+  globalState = inject(GLOBAL_RX_STATE);
+  readonly profiles$ = this.globalState.select('profiles');
 
-  get profiles(): Profile[] {
-    return this._profiles;
-  }
+  // private _profiles: Profile[] = [];
+
+  // get profiles(): Profile[] {
+  //   return this._profiles;
+  // }
 
   selectedProfileId = '';
 
-  profileChangesRealtimeChannel: RealtimeChannel;
+  // profileChangesRealtimeChannel: RealtimeChannel;
 
-  constructor() {
-    this.profileChangesRealtimeChannel = this.sbService.instance
-      .channel('schema-db-changes')
-      .on(
-        'postgres_changes',
-        {
-          schema: 'public', // Subscribes to the "public" schema in Postgres
-          event: '*', // Listen to all changes
-          table: 'profiles', // Listen to profile table only
-        },
-        (payload) => this.loadProfiles()
-      )
-      .subscribe();
-  }
+  // constructor() {
+  //   this.profileChangesRealtimeChannel = this.sbService.instance
+  //     .channel('schema-db-changes')
+  //     .on(
+  //       'postgres_changes',
+  //       {
+  //         schema: 'public', // Subscribes to the "public" schema in Postgres
+  //         event: '*', // Listen to all changes
+  //         table: 'profiles', // Listen to profile table only
+  //       },
+  //       (payload) => this.loadProfiles()
+  //     )
+  //     .subscribe();
+  // }
 
   async ngOnInit(): Promise<void> {
-    await this.loadProfiles();
+    //await this.loadProfiles();
   }
 
   ngOnDestroy(): void {
-    this.profileChangesRealtimeChannel.unsubscribe();
+    // this.profileChangesRealtimeChannel.unsubscribe();
   }
 
-  async loadProfiles() {
-    const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.sbService.instance.from('profiles').select('id,name').order('name', { ascending: true });
-    if (error === null) {
-      if (data !== null) {
-        this._profiles = data;
-        this.cdr.detectChanges(); // Trigger change detection
-      } else {
-        this.toastService.showToast('No profile data was returned.', 'info');
-      }
-    } else {
-      this.toastService.showToast(error!.message, 'error');
-    }
-  }
+  // async loadProfiles() {
+  //   const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.sbService.instance.from('profiles').select('id,name').order('name', { ascending: true });
+  //   if (error === null) {
+  //     if (data !== null) {
+  //       this._profiles = data;
+  //       this.cdr.detectChanges(); // Trigger change detection
+  //     } else {
+  //       this.toastService.showToast('No profile data was returned.', 'info');
+  //     }
+  //   } else {
+  //     this.toastService.showToast(error!.message, 'error');
+  //   }
+  // }
 
   selectProfileForEdit(profileId: string) {
     this.selectedProfileId = profileId;

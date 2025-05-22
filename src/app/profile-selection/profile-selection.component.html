@@ -1,5 +1,12 @@
 <div class="s-select">
     <select id="select-menu">
-        <option value="" selected>No profiles</option>
+        @if (profiles.length > 0) {
+        <option value="" selected>No profile selected</option>
+        }
+        @for (profile of profiles; track profile.id) {
+        <option value="{{ profile.id }}">{{ profile.name }}</option>
+        } @empty {
+        <option value="" selected>No profiles available</option>
+        }
     </select>
 </div>
