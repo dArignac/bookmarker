@@ -32,18 +32,18 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   // profileChangesRealtimeChannel: RealtimeChannel;
 
   // constructor() {
-  //   this.profileChangesRealtimeChannel = this.sbService.instance
-  //     .channel('schema-db-changes')
-  //     .on(
-  //       'postgres_changes',
-  //       {
-  //         schema: 'public', // Subscribes to the "public" schema in Postgres
-  //         event: '*', // Listen to all changes
-  //         table: 'profiles', // Listen to profile table only
-  //       },
-  //       (payload) => this.loadProfiles()
-  //     )
-  //     .subscribe();
+  // this.profileChangesRealtimeChannel = this.sbService.instance
+  //   .channel('schema-db-changes')
+  //   .on(
+  //     'postgres_changes',
+  //     {
+  //       schema: 'public', // Subscribes to the "public" schema in Postgres
+  //       event: '*', // Listen to all changes
+  //       table: 'profiles', // Listen to profile table only
+  //     },
+  //     (payload) => this.loadProfiles()
+  //   )
+  //   .subscribe();
   // }
 
   async ngOnInit(): Promise<void> {

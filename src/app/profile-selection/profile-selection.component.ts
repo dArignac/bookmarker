@@ -55,7 +55,6 @@ export class ProfileSelectionComponent implements OnInit, OnDestroy {
     if (error === null) {
       if (data !== null) {
         this._profiles = data;
-        console.log('data is', data);
         this.cdr.detectChanges(); // Trigger change detection
       } else {
         this.toastService.showToast('No profile data was returned.', 'info');
