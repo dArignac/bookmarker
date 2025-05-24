@@ -31,21 +31,19 @@ export class AppComponent implements OnInit, OnDestroy {
   // react if the profile loading failed and show the errror as toast
   readonly effects = rxEffects(({ register }) => {
     register(this.profileLoadingError$, (value) => {
-      this.serviceToast.showToast(value!, 'error');
+      if (value !== null && value.length > 0) {
+        this.serviceToast.showToast(value!, 'error');
+      }
     });
   });
 
   async ngOnInit(): Promise<void> {
     this.loggedInSubscription = this.isLoggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
-        // FIXME move that to profiles service
         // load the profiles and initialize the realtime channel
-        this.serviceProfiles.loadProfiles().then((result) => {
-          if (result.error === null) {
-            this.globalState.set({ profiles: result.data });
+        this.serviceProfiles.loadProfiles().then((success) => {
+          if (success) {
             this.serviceProfiles.initializeRealtimeChannels();
-          } else {
-            this.globalState.set({ profiles: [], selectedProfile: null, errors: { profiles: { loading: result.error.message } } });
           }
         });
       }

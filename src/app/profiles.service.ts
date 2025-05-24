@@ -31,7 +31,8 @@ export class ProfilesService {
             event: '*', // Listen to all changes
             table: 'profiles', // Listen to profile table only
           },
-          (payload) => this.loadProfilesAndSetState()
+          // FIXME we could merge the returned data with the state instead if reloading the profiles
+          (payload) => this.loadProfiles()
         )
         .subscribe();
     }
@@ -47,15 +48,15 @@ export class ProfilesService {
   //   this.selectedProfile.set(profile);
   // }
 
-  // TODO need to connect to the event stream to manipulate the state when profiles have been added, removed or changed
-  async loadProfiles() {
+  async loadProfiles(): Promise<boolean> {
     const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.serviceSupabase.instance.from('profiles').select('id,name').order('name', { ascending: true });
-    return { data, error };
-  }
 
-  async loadProfilesAndSetState() {
-    // TODO handle error case with side effect?
-    const result = await this.loadProfiles();
-    this.globalState.set({ profiles: result.data });
+    if (error === null) {
+      this.globalState.set({ profiles: data, errors: { profiles: { loading: null } } });
+      return true;
+    } else {
+      this.globalState.set({ profiles: [], selectedProfile: null, errors: { profiles: { loading: error.message } } });
+      return false;
+    }
   }
 }
