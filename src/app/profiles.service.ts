@@ -21,9 +21,7 @@ export class ProfilesService {
   hasProfileChanged$ = this.hasProfileChanged.asObservable(); // FIXME use to react in the app when the profile was switched
 
   initializeRealtimeChannels() {
-    console.warn('Initializing Realtime Channels for Profile Changes');
     if (!this.profileChangesRealtimeChannel) {
-      console.warn('Subscribing to profile changes');
       this.profileChangesRealtimeChannel = this.serviceSupabase.instance
         .channel('schema-db-changes')
         .on(
