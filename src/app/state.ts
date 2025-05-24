@@ -9,6 +9,7 @@ export interface GlobalState {
   errors: {
     profiles: {
       loading: string | null;
+      selected: string | null;
     };
   };
 }

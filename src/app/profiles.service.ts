@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { PostgrestError, RealtimeChannel } from '@supabase/supabase-js';
 import { BehaviorSubject } from 'rxjs';
-import { GLOBAL_RX_STATE } from './state';
+import { GLOBAL_RX_STATE, GlobalState } from './state';
 import { SupabaseService } from './supabase.service';
 import { Profile } from './types';
 
@@ -38,25 +38,59 @@ export class ProfilesService {
     }
   }
 
-  // TODO do we need it?
-  // getCurrentProfile(): Profile | null {
-  //   return this.selectedProfile();
-  // }
-
-  // TODO do we need it?
-  // setCurrentProfile(profile: Profile) {
-  //   this.selectedProfile.set(profile);
-  // }
-
   async loadProfiles(): Promise<boolean> {
     const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.serviceSupabase.instance.from('profiles').select('id,name').order('name', { ascending: true });
 
     if (error === null) {
-      this.globalState.set({ profiles: data, errors: { profiles: { loading: null } } });
+      // FIXME use immer
+      this.globalState.set((state) => ({
+        ...state,
+        profiles: data,
+        errors: {
+          ...state.errors,
+          loading: null,
+        },
+      }));
+
       return true;
     } else {
-      this.globalState.set({ profiles: [], selectedProfile: null, errors: { profiles: { loading: error.message } } });
+      // FIXME use immer
+      this.globalState.set((state) => ({
+        ...state,
+        errors: {
+          ...state.errors,
+          loading: error.message,
+        },
+      }));
       return false;
+    }
+  }
+
+  setSelectedProfile(profileId: string) {
+    const profiles = this.globalState.get('profiles');
+    const selectedProfile = profiles?.find((profile) => profile.id === profileId) || null;
+
+    if (selectedProfile === null) {
+      // error case, handed over if does not exist
+      // FIXME use immer
+      this.globalState.set((state) => ({
+        ...state,
+        selectedProfile: null,
+        errors: {
+          ...state.errors,
+          selected: `Profile with ID ${profileId} not found.`,
+        },
+      }));
+    } else {
+      // success case, set the selected profile
+      // FIXME use immer
+      this.globalState.set((state) => ({
+        ...state,
+        selectedProfile: selectedProfile,
+      }));
+
+      // Notify that the profile has changed
+      this.hasProfileChanged.next(true);
     }
   }
 }
