@@ -13,7 +13,20 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     {
       provide: GLOBAL_RX_STATE,
-      useFactory: () => rxState<GlobalState>(),
+      useFactory: () => {
+        const state = rxState<GlobalState>();
+        state.set({
+          selectedProfile: null,
+          profiles: null,
+          errors: {
+            profiles: {
+              loading: null,
+              selected: null,
+            },
+          },
+        });
+        return state;
+      },
     },
   ],
 };

@@ -1,7 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { PostgrestError, RealtimeChannel } from '@supabase/supabase-js';
+import { produce } from 'immer';
 import { BehaviorSubject } from 'rxjs';
-import { GLOBAL_RX_STATE, GlobalState } from './state';
+import { GLOBAL_RX_STATE } from './state';
 import { SupabaseService } from './supabase.service';
 import { Profile } from './types';
 
@@ -42,30 +43,27 @@ export class ProfilesService {
     const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.serviceSupabase.instance.from('profiles').select('id,name').order('name', { ascending: true });
 
     if (error === null) {
-      // FIXME use immer
-      this.globalState.set((state) => ({
-        ...state,
-        profiles: data,
-        errors: {
-          ...state.errors,
-          loading: null,
-        },
-      }));
+      this.globalState.set((state) =>
+        produce(state, (draft) => {
+          draft.profiles = data ?? [];
+          draft.errors.profiles.loading = null;
+        })
+      );
 
       return true;
     } else {
-      // FIXME use immer
-      this.globalState.set((state) => ({
-        ...state,
-        errors: {
-          ...state.errors,
-          loading: error.message,
-        },
-      }));
+      this.globalState.set((state) =>
+        produce(state, (draft) => {
+          draft.profiles = [];
+          draft.errors.profiles.loading = error.message;
+        })
+      );
+
       return false;
     }
   }
 
+  // FIXME we don't need it, should be gotten from url
   setSelectedProfile(profileId: string) {
     const profiles = this.globalState.get('profiles');
     const selectedProfile = profiles?.find((profile) => profile.id === profileId) || null;
