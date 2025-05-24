@@ -18,18 +18,16 @@ export const routes: Routes = [
       user: UserResolver,
     },
   },
-  // FIXME adjust path with parameters
   {
-    path: 'bookmarks',
+    path: 'profiles/:profileId/bookmarks',
     component: BookmarksComponent,
     canActivate: [AuthGuard],
     resolve: {
       user: UserResolver,
     },
   },
-  // FIXME adjust path with parameters
   {
-    path: 'tags',
+    path: 'profiles/:profileId/tags',
     component: TagsComponent,
     canActivate: [AuthGuard],
     resolve: {

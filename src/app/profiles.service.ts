@@ -63,32 +63,25 @@ export class ProfilesService {
     }
   }
 
-  // FIXME we don't need it, should be gotten from url
-  setSelectedProfile(profileId: string) {
+  setSelectedProfile(profileId: string): boolean {
     const profiles = this.globalState.get('profiles');
     const selectedProfile = profiles?.find((profile) => profile.id === profileId) || null;
 
     if (selectedProfile === null) {
-      // error case, handed over if does not exist
-      // FIXME use immer
-      this.globalState.set((state) => ({
-        ...state,
-        selectedProfile: null,
-        errors: {
-          ...state.errors,
-          selected: `Profile with ID ${profileId} not found.`,
-        },
-      }));
-    } else {
-      // success case, set the selected profile
-      // FIXME use immer
-      this.globalState.set((state) => ({
-        ...state,
-        selectedProfile: selectedProfile,
-      }));
-
-      // Notify that the profile has changed
-      this.hasProfileChanged.next(true);
+      // error case, toast is handled by calling component
+      return false;
     }
+
+    // success case, set the selected profile
+    this.globalState.set((state) =>
+      produce(state, (draft) => {
+        draft.selectedProfile = selectedProfile;
+      })
+    );
+
+    // Notify that the profile has changed
+    this.hasProfileChanged.next(true);
+
+    return true;
   }
 }

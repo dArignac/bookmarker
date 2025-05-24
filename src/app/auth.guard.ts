@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { SupabaseService } from './supabase.service';
 import { Observable } from 'rxjs';
+import { SupabaseService } from './supabase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private supabaseService: SupabaseService, private router: Router) {}
+  serviceSupabase = inject(SupabaseService);
+  router = inject(Router);
 
   canActivate(): Observable<boolean> {
     return new Observable<boolean>((observer) => {
-      this.supabaseService.getUser().then(({ data }) => {
+      this.serviceSupabase.getUser().then(({ data }) => {
         if (data.user) {
           observer.next(true);
         } else {
