@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationError, Router, RouterOutlet } from '@angular/router';
 import { rxEffects } from '@rx-angular/state/effects';
 import { Subscription } from 'rxjs';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -18,19 +18,22 @@ import { ToastService } from './toast.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Bookmarker';
-  globalState = inject(GLOBAL_RX_STATE);
+
+  router = inject(Router);
+
   serviceSupabase = inject(SupabaseService);
   serviceProfiles = inject(ProfilesService);
   serviceToast = inject(ToastService);
 
+  globalState = inject(GLOBAL_RX_STATE);
+  profilesLoadingError$ = this.globalState.select('errors', 'profiles', 'loading');
+
   isLoggedIn$ = this.serviceSupabase.isLoggedIn$;
   private loggedInSubscription: Subscription = new Subscription();
 
-  profileLoadingError$ = this.globalState.select('errors', 'profiles', 'loading');
-
   // react if the profile loading failed and show the errror as toast
   readonly effects = rxEffects(({ register }) => {
-    register(this.profileLoadingError$, (value) => {
+    register(this.profilesLoadingError$, (value) => {
       if (value !== null && value.length > 0) {
         this.serviceToast.showToast(value!, 'error');
       }
@@ -38,14 +41,15 @@ export class AppComponent implements OnInit, OnDestroy {
   });
 
   async ngOnInit(): Promise<void> {
-    this.loggedInSubscription = this.isLoggedIn$.subscribe((isLoggedIn) => {
-      if (isLoggedIn) {
-        // load the profiles and initialize the realtime channel
-        this.serviceProfiles.loadProfiles().then((success) => {
-          if (success) {
-            this.serviceProfiles.initializeRealtimeChannels();
-          }
-        });
+    // FIXME if needed later we can use this to react to the logged in state
+    // this.loggedInSubscription = this.isLoggedIn$.subscribe((isLoggedIn) => {
+    //   if (isLoggedIn) {
+    //   }
+    // });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationError) {
+        this.router.navigate(['/error'], { state: { message: event.error?.message } });
       }
     });
   }
