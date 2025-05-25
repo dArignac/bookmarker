@@ -12,3 +12,12 @@ export class ProfileIdPipe implements PipeTransform {
     return '';
   }
 }
+
+@Pipe({
+  name: 'notNull',
+})
+export class NotNullPipe implements PipeTransform {
+  transform(value: any | null): boolean {
+    return value !== null && value !== undefined;
+  }
+}
