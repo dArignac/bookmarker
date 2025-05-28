@@ -1,7 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { PostgrestError, RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 import { produce } from 'immer';
-import { BehaviorSubject } from 'rxjs';
 import { GLOBAL_RX_STATE } from './state';
 import { SupabaseService } from './supabase.service';
 import { Profile } from './types';
@@ -17,9 +16,6 @@ export class ProfilesService {
   profileChangesRealtimeChannel: RealtimeChannel | null = null;
 
   selectedProfile = signal<Profile | null>(null);
-
-  private hasProfileChanged = new BehaviorSubject<boolean>(false);
-  hasProfileChanged$ = this.hasProfileChanged.asObservable(); // FIXME use to react in the app when the profile was switched - remove and use state instead
 
   initializeRealtimeChannels() {
     if (!this.profileChangesRealtimeChannel) {
@@ -113,9 +109,6 @@ export class ProfilesService {
         draft.selectedProfile = selectedProfile;
       })
     );
-
-    // Notify that the profile has changed
-    this.hasProfileChanged.next(true);
 
     return true;
   }
