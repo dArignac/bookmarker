@@ -1,5 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject, Input } from '@angular/core';
+import { ProfilesService } from '../profiles.service';
+import { GLOBAL_RX_STATE } from '../state';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-bookmarks',
@@ -7,8 +9,19 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './bookmarks.component.html',
   styleUrl: './bookmarks.component.scss',
 })
-export class BookmarksComponent implements OnInit {
-  private activatedRoute = inject(ActivatedRoute);
+export class BookmarksComponent {
+  @Input()
+  set profileId(value: string) {
+    const success = this.serviceProfiles.setSelectedProfile(value);
+    if (!success) {
+      this.serviceToast.showToast('Unable to set profile!', 'error');
+    }
+  }
+
+  serviceProfiles = inject(ProfilesService);
+  serviceToast = inject(ToastService);
+
+  globalState = inject(GLOBAL_RX_STATE);
 
   // FIXME necessary?
   // user: User = this.activatedRoute.snapshot.data['user'];
@@ -16,8 +29,4 @@ export class BookmarksComponent implements OnInit {
   // bookmarksResource = resource({
   //   loader: () => firstValueFrom(this.serviceApi.getBookmarks()),
   // });
-
-  ngOnInit(): void {
-    // TODO remove?
-  }
 }

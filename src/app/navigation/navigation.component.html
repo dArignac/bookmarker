@@ -4,64 +4,58 @@
     <nav aria-label="Bookmarker navigation">
       <ol class="s-navigation">
         <li>
-          <a
-            routerLink="/"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="is-selected"
-            class="s-navigation--item"
-          >
+          <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="is-selected"
+            class="s-navigation--item">
             Home
           </a>
         </li>
         @if(isLoggedIn$ | async) {
         <li>
-          <a routerLink="/profiles" routerLinkActive="is-selected" class="s-navigation--item">
+          <a routerLink="/profiles" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="is-selected"
+            class="s-navigation--item">
             Profiles
           </a>
         </li>
+
+        @if(selectedProfile$ | async | notNull ) {
         <li>
-          <a routerLink="/bookmarks" routerLinkActive="is-selected" class="s-navigation--item">
+          <a routerLink="/profiles/{{ selectedProfile$ | async | profileId }}/bookmarks" routerLinkActive="is-selected"
+            class="s-navigation--item">
             Bookmarks
           </a>
         </li>
         <li>
-          <a routerLink="/tags" routerLinkActive="is-selected" class="s-navigation--item">Tags</a>
+          <a routerLink="/profiles/{{ selectedProfile$ | async | profileId }}/tags" routerLinkActive="is-selected"
+            class="s-navigation--item">Tags</a>
         </li>
+        }
+
         }
       </ol>
     </nav>
 
+    @if(selectedProfile$ | async | notNull ) {
     <form id="search" class="s-topbar--searchbar" autocomplete="off" role="search">
       <div class="s-topbar--searchbar--input-group">
-        <input
-          type="text"
-          placeholder="Search…"
-          value=""
-          autocomplete="off"
-          class="s-input s-input__search"
-        />
+        <input type="text" placeholder="Search…" value="" autocomplete="off" class="s-input s-input__search" />
         <span class="svg-icon-bg iconSearch s-input-icon s-input-icon__search"></span>
       </div>
     </form>
+    }
 
     <nav class="s-topbar--navigation" aria-label="Log in">
       <ol class="s-topbar--content">
         <li>
           @if(isLoggedIn$ | async) {
           <!-- <a class="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Add bookmark</a> -->
-          <div class="s-topbar--item s-topbar--item__unset flex--item s-select ml4">
-            <select id="select-menu">
-              <option value="" selected>No profiles</option>
-            </select>
+          <div class="s-topbar--item s-topbar--item__unset flex--item ml4">
+            <app-profile-selection></app-profile-selection>
           </div>
           }
         </li>
         <li>
           @if(isLoggedIn$ | async) {
-          <a
-            (click)="logout()"
-            class="s-topbar--item ml4 s-topbar--item__unset s-btn s-btn__outlined"
-          >
+          <a (click)="logout()" class="s-topbar--item ml4 s-topbar--item__unset s-btn s-btn__outlined">
             Log out
           </a>
           } @else {

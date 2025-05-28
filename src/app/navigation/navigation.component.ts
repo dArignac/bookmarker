@@ -1,23 +1,29 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NotNullPipe, ProfileIdPipe } from '../pipes';
+import { ProfileSelectionComponent } from '../profile-selection/profile-selection.component';
 import { SupabaseService } from '../supabase.service';
-import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { GLOBAL_RX_STATE } from '../state';
 @Component({
   selector: 'app-navigation',
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, NotNullPipe, ProfileIdPipe, RouterLink, RouterLinkActive, ProfileSelectionComponent],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
 })
 export class NavigationComponent implements OnInit, OnDestroy {
-  sbService = inject(SupabaseService);
-  isLoggedIn$ = this.sbService.isLoggedIn$;
+  serviceSupabase = inject(SupabaseService);
+
+  globalState = inject(GLOBAL_RX_STATE);
+  selectedProfile$ = this.globalState.select('selectedProfile');
+
+  isLoggedIn$ = this.serviceSupabase.isLoggedIn$;
 
   ngOnInit() {}
 
   ngOnDestroy() {}
 
   public async logout(): Promise<void> {
-    await this.sbService.logout();
+    await this.serviceSupabase.logout();
   }
 }

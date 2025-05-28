@@ -1,0 +1,12 @@
+<div class="s-select">
+    <select id="select-menu" [ngModel]="selectedProfile$ | async | profileId" (change)="onProfileChange($event)">
+        @if ((selectedProfile$ | async) == null) {
+        <option value="">No profile selected</option>
+        }
+        @for (profile of profiles$ | async; track profile.id) {
+        <option value="{{ profile.id }}" [value]="profile.id">{{ profile.name }}</option>
+        } @empty {
+        <option value="" selected>No profiles available</option>
+        }
+    </select>
+</div>

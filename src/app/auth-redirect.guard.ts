@@ -6,19 +6,16 @@ import { SupabaseService } from './supabase.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  serviceSupabase = inject(SupabaseService);
+export class AuthRedirectGuard implements CanActivate {
   router = inject(Router);
+
+  serviceSupabase = inject(SupabaseService);
 
   canActivate(): Observable<boolean> {
     return new Observable<boolean>((observer) => {
       this.serviceSupabase.getUser().then(({ data }) => {
-        if (data.user) {
-          observer.next(true);
-        } else {
-          this.router.navigate(['/login']);
-          observer.next(false);
-        }
+        this.router.navigate([data.user ? '/dashboard' : '/home']);
+        observer.next(false);
         observer.complete();
       });
     });
