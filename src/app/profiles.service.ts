@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { PostgrestError, RealtimeChannel } from '@supabase/supabase-js';
+import { PostgrestError, RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 import { produce } from 'immer';
 import { BehaviorSubject } from 'rxjs';
 import { GLOBAL_RX_STATE } from './state';
@@ -19,7 +19,7 @@ export class ProfilesService {
   selectedProfile = signal<Profile | null>(null);
 
   private hasProfileChanged = new BehaviorSubject<boolean>(false);
-  hasProfileChanged$ = this.hasProfileChanged.asObservable(); // FIXME use to react in the app when the profile was switched
+  hasProfileChanged$ = this.hasProfileChanged.asObservable(); // FIXME use to react in the app when the profile was switched - remove and use state instead
 
   initializeRealtimeChannels() {
     if (!this.profileChangesRealtimeChannel) {
@@ -32,10 +32,45 @@ export class ProfilesService {
             event: '*', // Listen to all changes
             table: 'profiles', // Listen to profile table only
           },
-          // FIXME we could merge the returned data with the state instead if reloading the profiles
-          (payload) => this.loadProfiles()
+          (payload) => this.realtimeUpdate(payload)
         )
         .subscribe();
+    }
+  }
+
+  async realtimeUpdate(
+    payload: RealtimePostgresChangesPayload<{
+      [key: string]: any;
+    }>
+  ) {
+    console.log('Realtime update received:', payload);
+
+    if (payload.eventType === 'DELETE') {
+      this.globalState.set((state) =>
+        produce(state, (draft) => {
+          const index = draft.profiles!.findIndex((profile) => profile.id === payload.old['id']);
+          if (index !== -1) draft.profiles!.splice(index, 1);
+        })
+      );
+    } else if (payload.eventType === 'UPDATE') {
+      this.globalState.set((state) =>
+        produce(state, (draft) => {
+          const index = draft.profiles!.findIndex((profile) => profile.id === payload.new['id']);
+          if (index !== -1) {
+            draft.profiles![index] = { id: payload.new['id'], name: payload.new['name'] as string } as Profile;
+          }
+        })
+      );
+    } else if (payload.eventType === 'INSERT') {
+      this.globalState.set((state) =>
+        produce(state, (draft) => {
+          const newProfile: Profile = {
+            id: payload.new['id'],
+            name: payload.new['name'],
+          };
+          draft.profiles!.push(newProfile);
+        })
+      );
     }
   }
 
