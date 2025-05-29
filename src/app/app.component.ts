@@ -4,11 +4,11 @@ import { NavigationError, Router, RouterOutlet } from '@angular/router';
 import { rxEffects } from '@rx-angular/state/effects';
 import { Subscription } from 'rxjs';
 import { NavigationComponent } from './navigation/navigation.component';
-import { ProfilesService } from './profiles.service';
+import { ProfilesService } from './services/profiles.service';
 import { GLOBAL_RX_STATE } from './state';
-import { SupabaseService } from './supabase.service';
+import { SupabaseService } from './services/supabase.service';
 import { ToastContainerComponent } from './toast-container/toast-container.component';
-import { ToastService } from './toast.service';
+import { ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',

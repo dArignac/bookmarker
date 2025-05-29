@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SupabaseService } from '../supabase.service';
+import { SupabaseService } from '../services/supabase.service';
 
 @Component({
   selector: 'app-login',
@@ -23,10 +23,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.isLoading = true; // Start loading
       try {
-        await this.sbService.loginWithEmail(
-          this.loginForm.value.email!,
-          this.loginForm.value.password!
-        );
+        await this.sbService.loginWithEmail(this.loginForm.value.email!, this.loginForm.value.password!);
       } finally {
         this.isLoading = false; // Stop loading
       }

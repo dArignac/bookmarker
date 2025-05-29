@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProfileIdPipe } from '../pipes';
-import { ProfilesService } from '../profiles.service';
+import { ProfilesService } from '../services/profiles.service';
 import { GLOBAL_RX_STATE } from '../state';
 
 @Component({
