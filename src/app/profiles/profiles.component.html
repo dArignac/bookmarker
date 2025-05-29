@@ -2,7 +2,10 @@
     <div class="grid--item grid--col2 d-grid grid__2 m8">
         @for (profile of profiles$ | async; track profile.id) {
         <div class="grid-item">{{ profile.name }}</div>
-        <div class="grid-item s-btn" (click)="selectProfileForEdit(profile.id)">Edit</div>
+        <div class="grid-item">
+            <div class="s-btn" (click)="selectProfileForEdit(profile.id)">Edit</div>
+            <a class="s-btn" routerLink="/profiles/{{ profile.id }}/delete">Delete</a>
+        </div>
         } @empty {
         <div class="grid-item grid__2">No profiles found.</div>
         }

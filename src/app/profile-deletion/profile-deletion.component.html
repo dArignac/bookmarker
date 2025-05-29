@@ -1,0 +1,10 @@
+<div class="m12">
+    @if (profile) {
+    <h1>Are you sure that you want to delete profile "{{ profile.name }}"?</h1>
+    <p>All contained bookmarks will be deleted as well!</p>
+    <div class="pt12">
+        <div class="s-btn s-btn__danger s-btn__filled mr12" (click)="deleteProfile()">Delete Profile</div>
+        <div class="s-btn s-btn__outlined" routerLink="/profiles">Back to Profiles overview</div>
+    </div>
+    }
+</div>

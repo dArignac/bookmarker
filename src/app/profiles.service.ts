@@ -112,4 +112,9 @@ export class ProfilesService {
 
     return true;
   }
+
+  async deleteProfile(profileId: string): Promise<boolean> {
+    const response = await this.serviceSupabase.instance.from('profiles').delete().eq('id', profileId);
+    return response.error === null;
+  }
 }

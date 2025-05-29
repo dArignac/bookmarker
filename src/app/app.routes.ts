@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginRequiredComponent } from './login-required/login-required.component';
 import { LoginComponent } from './login/login.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
+import { ProfileDeletionComponent } from './profile-deletion/profile-deletion.component';
 import { ProfilesResolver } from './profiles.resolver';
 import { ProfilesComponent } from './profiles/profiles.component';
 import { TagsComponent } from './tags/tags.component';
@@ -40,6 +41,17 @@ export const routes: Routes = [
     },
   },
   {
+    // FIXME can we add a guard to ensure the id is a UUID? If not handle in component
+    path: 'profiles/:profileId/delete',
+    component: ProfileDeletionComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      user: UserResolver,
+      profiles: ProfilesResolver,
+    },
+  },
+  {
+    // FIXME can we add a guard to ensure the id is a UUID? If not handle in component
     path: 'profiles/:profileId/bookmarks',
     component: BookmarksComponent,
     canActivate: [AuthGuard],
@@ -49,6 +61,7 @@ export const routes: Routes = [
     },
   },
   {
+    // FIXME can we add a guard to ensure the id is a UUID? If not handle in component
     path: 'profiles/:profileId/tags',
     component: TagsComponent,
     canActivate: [AuthGuard],
