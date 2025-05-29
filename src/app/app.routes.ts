@@ -4,9 +4,11 @@ import { AuthGuard } from './auth.guard';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorComponent } from './error/error.component';
+import { UuidRouteGuard } from './guards/uuid-route.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginRequiredComponent } from './login-required/login-required.component';
 import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
 import { ProfileDeletionComponent } from './profile-deletion/profile-deletion.component';
 import { ProfilesResolver } from './profiles.resolver';
@@ -41,30 +43,27 @@ export const routes: Routes = [
     },
   },
   {
-    // FIXME can we add a guard to ensure the id is a UUID? If not handle in component
     path: 'profiles/:profileId/delete',
     component: ProfileDeletionComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, UuidRouteGuard],
     resolve: {
       user: UserResolver,
       profiles: ProfilesResolver,
     },
   },
   {
-    // FIXME can we add a guard to ensure the id is a UUID? If not handle in component
     path: 'profiles/:profileId/bookmarks',
     component: BookmarksComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, UuidRouteGuard],
     resolve: {
       user: UserResolver,
       profiles: ProfilesResolver,
     },
   },
   {
-    // FIXME can we add a guard to ensure the id is a UUID? If not handle in component
     path: 'profiles/:profileId/tags',
     component: TagsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, UuidRouteGuard],
     resolve: {
       user: UserResolver,
       profiles: ProfilesResolver,
@@ -73,5 +72,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'not-logged-in', component: LoginRequiredComponent },
   { path: 'error', component: ErrorComponent },
-  { path: '**', redirectTo: '/error' },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' },
 ];
