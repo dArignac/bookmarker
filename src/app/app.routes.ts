@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { AuthRedirectGuard } from './auth-redirect.guard';
-import { AuthGuard } from './auth.guard';
+import { AuthRedirectGuard } from './guards/auth-redirect.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorComponent } from './error/error.component';
