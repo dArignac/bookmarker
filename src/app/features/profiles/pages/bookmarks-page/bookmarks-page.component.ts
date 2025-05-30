@@ -1,15 +1,15 @@
 import { Component, inject, Input } from '@angular/core';
-import { ProfilesService } from '../features/profiles/services/profiles.service';
-import { ToastService } from '../services/toast.service';
-import { GLOBAL_RX_STATE } from '../state';
+import { ProfilesService } from '../../services/profiles.service';
+import { ToastService } from '../../../../services/toast.service';
+import { GLOBAL_RX_STATE } from '../../../../state';
 
 @Component({
-  selector: 'app-bookmarks',
+  selector: 'app-bookmarks-page',
   imports: [],
-  templateUrl: './bookmarks.component.html',
-  styleUrl: './bookmarks.component.scss',
+  templateUrl: './bookmarks-page.component.html',
+  styleUrl: './bookmarks-page.component.scss',
 })
-export class BookmarksComponent {
+export class BookmarksPageComponent {
   @Input()
   set profileId(value: string) {
     const success = this.serviceProfiles.setSelectedProfile(value);

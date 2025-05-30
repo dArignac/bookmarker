@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { BookmarksComponent } from '../../bookmarks/bookmarks.component';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { UuidRouteGuard } from '../../core/guards/uuid-route.guard';
-import { ProfilesResolver } from './profiles.resolver';
 import { UserResolver } from '../../user.resolver';
+import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 import { ProfileDeletionPageComponent } from './pages/profile-deletion-page/profile-deletion-page.component';
 import { ProfilesPageComponent } from './pages/profile-page/profiles-page.component';
+import { ProfilesResolver } from './profiles.resolver';
 
 export const routes: Routes = [
   {
@@ -28,7 +28,7 @@ export const routes: Routes = [
   },
   {
     path: ':profileId/bookmarks',
-    component: BookmarksComponent,
+    component: BookmarksPageComponent,
     canActivate: [AuthGuard, UuidRouteGuard],
     resolve: {
       user: UserResolver,
