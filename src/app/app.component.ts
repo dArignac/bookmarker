@@ -9,10 +9,12 @@ import { SupabaseService } from './services/supabase.service';
 import { ToastService } from './services/toast.service';
 import { GLOBAL_RX_STATE } from './state';
 import { ToastContainerComponent } from './toast-container/toast-container.component';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, NavigationComponent, RouterOutlet, ToastContainerComponent],
+  imports: [CommonModule, CoreModule, SharedModule, NavigationComponent, RouterOutlet, ToastContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

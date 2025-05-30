@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../../core/guards/auth.guard';
-import { UuidRouteGuard } from '../../core/guards/uuid-route.guard';
+import { UuidRouteGuard } from '../../shared/guards/uuid-route.guard';
 import { UserResolver } from '../../user.resolver';
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 import { ProfileDeletionPageComponent } from './pages/profile-deletion-page/profile-deletion-page.component';
