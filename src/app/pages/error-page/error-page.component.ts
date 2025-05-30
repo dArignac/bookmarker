@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-error',
+  selector: 'app-error-page',
   imports: [],
-  templateUrl: './error.component.html',
-  styleUrl: './error.component.scss',
+  templateUrl: './error-page.component.html',
+  styleUrl: './error-page.component.scss',
 })
-export class ErrorComponent {
+export class ErrorPageComponent {
   router = inject(Router);
 
   errorMessage: string | null = null;

@@ -3,14 +3,14 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NavigationError, Router, RouterOutlet } from '@angular/router';
 import { rxEffects } from '@rx-angular/state/effects';
 import { Subscription } from 'rxjs';
+import { CoreModule } from './core/core.module';
 import { ProfilesService } from './features/profiles/services/profiles.service';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SupabaseService } from './services/supabase.service';
 import { ToastService } from './services/toast.service';
+import { SharedModule } from './shared/shared.module';
 import { GLOBAL_RX_STATE } from './state';
 import { ToastContainerComponent } from './toast-container/toast-container.component';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',
