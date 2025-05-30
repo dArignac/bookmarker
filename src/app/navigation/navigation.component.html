@@ -10,12 +10,6 @@
           </a>
         </li>
         @if(isLoggedIn$ | async) {
-        <li>
-          <a routerLink="/profiles" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="is-selected"
-            class="s-navigation--item">
-            Profiles
-          </a>
-        </li>
 
         @if(selectedProfile$ | async | notNull ) {
         <li>
@@ -24,11 +18,18 @@
             Bookmarks
           </a>
         </li>
-        <li>
-          <a routerLink="/profiles/{{ selectedProfile$ | async | profileId }}/tags" routerLinkActive="is-selected"
-            class="s-navigation--item">Tags</a>
-        </li>
         }
+
+        <li>
+          <a routerLink="/profiles" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="is-selected"
+            class="s-navigation--item">
+            Profiles
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/tags" routerLinkActive="is-selected" class="s-navigation--item">Tags</a>
+        </li>
 
         }
       </ol>

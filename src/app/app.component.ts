@@ -3,12 +3,12 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NavigationError, Router, RouterOutlet } from '@angular/router';
 import { rxEffects } from '@rx-angular/state/effects';
 import { Subscription } from 'rxjs';
+import { ProfilesService } from './features/profiles/services/profiles.service';
 import { NavigationComponent } from './navigation/navigation.component';
-import { ProfilesService } from './services/profiles.service';
-import { GLOBAL_RX_STATE } from './state';
 import { SupabaseService } from './services/supabase.service';
-import { ToastContainerComponent } from './toast-container/toast-container.component';
 import { ToastService } from './services/toast.service';
+import { GLOBAL_RX_STATE } from './state';
+import { ToastContainerComponent } from './toast-container/toast-container.component';
 
 @Component({
   selector: 'app-root',

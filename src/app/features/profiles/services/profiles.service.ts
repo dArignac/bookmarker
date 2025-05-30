@@ -1,9 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { PostgrestError, RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 import { produce } from 'immer';
-import { GLOBAL_RX_STATE } from '../state';
-import { SupabaseService } from './supabase.service';
-import { Profile } from '../types';
+import { SupabaseService } from '../../../services/supabase.service';
+import { GLOBAL_RX_STATE } from '../../../state';
+import { Profile } from '../models/Profile';
 
 @Injectable({
   providedIn: 'root',
@@ -44,14 +44,14 @@ export class ProfilesService {
     if (payload.eventType === 'DELETE') {
       this.globalState.set((state) =>
         produce(state, (draft) => {
-          const index = draft.profiles!.findIndex((profile) => profile.id === payload.old['id']);
+          const index = draft.profiles!.findIndex((profile: Profile) => profile.id === payload.old['id']);
           if (index !== -1) draft.profiles!.splice(index, 1);
         })
       );
     } else if (payload.eventType === 'UPDATE') {
       this.globalState.set((state) =>
         produce(state, (draft) => {
-          const index = draft.profiles!.findIndex((profile) => profile.id === payload.new['id']);
+          const index = draft.profiles!.findIndex((profile: Profile) => profile.id === payload.new['id']);
           if (index !== -1) {
             draft.profiles![index] = { id: payload.new['id'], name: payload.new['name'] as string } as Profile;
           }

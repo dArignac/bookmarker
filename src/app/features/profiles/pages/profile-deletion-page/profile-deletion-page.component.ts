@@ -1,17 +1,17 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { ProfilesService } from '../services/profiles.service';
-import { GLOBAL_RX_STATE } from '../state';
-import { ToastService } from '../services/toast.service';
-import { Profile } from '../types';
+import { ToastService } from '../../../../services/toast.service';
+import { GLOBAL_RX_STATE } from '../../../../state';
+import { Profile } from '../../models/Profile';
+import { ProfilesService } from '../../services/profiles.service';
 
 @Component({
-  selector: 'app-profile-deletion',
+  selector: 'app-profile-deletion-page',
   imports: [RouterModule],
-  templateUrl: './profile-deletion.component.html',
-  styleUrl: './profile-deletion.component.scss',
+  templateUrl: './profile-deletion-page.component.html',
+  styleUrl: './profile-deletion-page.component.scss',
 })
-export class ProfileDeletionComponent implements OnInit {
+export class ProfileDeletionPageComponent implements OnInit {
   @Input() profileId: string = '';
 
   router = inject(Router);

@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ProfileCreationComponent } from '../profile-creation/profile-creation.component';
-import { GLOBAL_RX_STATE } from '../state';
 import { RouterModule } from '@angular/router';
+import { GLOBAL_RX_STATE } from '../../../../state';
+import { ProfileCreationComponent } from '../../components/profile-creation/profile-creation.component';
 
 @Component({
-  selector: 'app-profiles',
+  selector: 'app-profiles-page',
   imports: [CommonModule, RouterModule, ProfileCreationComponent],
-  templateUrl: './profiles.component.html',
-  styleUrl: './profiles.component.scss',
+  templateUrl: './profiles-page.component.html',
+  styleUrl: './profiles-page.component.scss',
 })
-export class ProfilesComponent {
+export class ProfilesPageComponent {
   globalState = inject(GLOBAL_RX_STATE);
   readonly profiles$ = this.globalState.select('profiles');
 
