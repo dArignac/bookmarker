@@ -13,7 +13,6 @@ import { ProfilesService } from '../../services/profiles.service';
   styleUrl: './profile-selection.component.scss',
 })
 export class ProfileSelectionComponent {
-  // FIXME if the URl contains an invalid profileId, we must redirect to landing page and show toast
   serviceProfiles = inject(ProfilesService);
   router = inject(Router);
 
