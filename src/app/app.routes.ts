@@ -5,7 +5,6 @@ import { DashboardComponent } from './features/landing-pages/components/dashboar
 import { HomeComponent } from './features/landing-pages/components/home/home.component';
 import { PlaceholderComponent } from './features/landing-pages/components/placeholder/placeholder.component';
 import { ProfilesResolver } from './features/profiles/profiles.resolver';
-import { LoginComponent } from './login/login.component';
 import { TagsComponent } from './tags/tags.component';
 import { UserResolver } from './user.resolver';
 
@@ -38,7 +37,10 @@ export const routes: Routes = [
       user: UserResolver,
     },
   },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/auth/auth.routes').then((m) => m.routes),
+  },
   { path: 'error', loadComponent: () => import('./pages/error-page/error-page.component').then((m) => m.ErrorPageComponent) },
   { path: '404', loadComponent: () => import('./pages/not-found-page/not-found-page.component').then((m) => m.NotFoundPageComponent) },
   { path: '**', redirectTo: '/404' },

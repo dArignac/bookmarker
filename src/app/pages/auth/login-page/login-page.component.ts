@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SupabaseService } from '../services/supabase.service';
+import { SupabaseService } from '../../../services/supabase.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-login-page',
   imports: [ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './login-page.component.html',
+  styleUrl: './login-page.component.scss',
 })
-export class LoginComponent {
+export class LoginPageComponent {
   sbService = inject(SupabaseService);
   formBuilder = inject(FormBuilder);
 
