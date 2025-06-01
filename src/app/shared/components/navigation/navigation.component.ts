@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { SupabaseService } from '../../../core/services/supabase/supabase.service';
 import { ProfileSelectionComponent } from '../../../features/profiles/components/profile-selection/profile-selection.component';
 import { ProfileIdPipe } from '../../../features/profiles/pipes';
 import { NotNullPipe } from '../../../pipes';
-import { SupabaseService } from '../../../services/supabase.service';
 import { GLOBAL_RX_STATE } from '../../../state';
 
 @Component({

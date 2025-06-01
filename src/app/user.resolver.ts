@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { User } from '@supabase/supabase-js';
-import { SupabaseService } from './services/supabase.service';
+import { SupabaseService } from './core/services/supabase/supabase.service';
 
 // FIXME really needed
 @Injectable({
