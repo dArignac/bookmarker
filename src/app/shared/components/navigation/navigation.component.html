@@ -3,12 +3,22 @@
   <div class="s-topbar--container">
     <nav aria-label="Bookmarker navigation">
       <ol class="s-navigation">
+        @if(isLoggedIn$ | async) {
         <li>
-          <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="is-selected"
+          <a routerLink="/dashboard" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="is-selected"
+            class="s-navigation--item">
+            Dashboard
+          </a>
+        </li>
+        } @else {
+        <li>
+          <a routerLink="/home" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="is-selected"
             class="s-navigation--item">
             Home
           </a>
         </li>
+        }
+
         @if(isLoggedIn$ | async) {
 
         @if(selectedProfile$ | async | notNull ) {
