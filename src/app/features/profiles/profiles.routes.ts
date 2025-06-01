@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '../../core/guards/auth.guard';
+import { authGuard } from '../../core/guards/auth.guard';
 import { UuidRouteGuard } from '../../shared/guards/uuid-route.guard';
 import { UserResolver } from '../../user.resolver';
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: '',
     component: ProfilesPageComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     resolve: {
       user: UserResolver,
       profiles: ProfilesResolver,
@@ -20,7 +20,7 @@ export const routes: Routes = [
   {
     path: ':profileId/delete',
     component: ProfileDeletionPageComponent,
-    canActivate: [AuthGuard, UuidRouteGuard],
+    canActivate: [authGuard, UuidRouteGuard],
     resolve: {
       user: UserResolver,
       profiles: ProfilesResolver,
@@ -29,7 +29,7 @@ export const routes: Routes = [
   {
     path: ':profileId/bookmarks',
     component: BookmarksPageComponent,
-    canActivate: [AuthGuard, UuidRouteGuard],
+    canActivate: [authGuard, UuidRouteGuard],
     resolve: {
       user: UserResolver,
       profiles: ProfilesResolver,

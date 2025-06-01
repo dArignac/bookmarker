@@ -1,9 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { AuthRedirectGuard } from './guards/auth-redirect.guard';
-import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
-  providers: [AuthRedirectGuard, AuthGuard],
+  providers: [],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
