@@ -6,8 +6,8 @@ import { HomeComponent } from './features/landing-pages/components/home/home.com
 import { PlaceholderComponent } from './features/landing-pages/components/placeholder/placeholder.component';
 import { ProfilesResolver } from './features/profiles/profiles.resolver';
 import { AppShellComponent } from './layout/app-shell/app-shell.component';
-import { TagsComponent } from './tags/tags.component';
-import { UserResolver } from './user.resolver';
+import { TagsComponent } from './features/tags/tags.component';
+import { UserResolver } from './core/user.resolver';
 
 export const routes: Routes = [
   // Redirect root path to home (or dashboard)

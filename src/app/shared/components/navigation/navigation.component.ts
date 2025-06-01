@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SupabaseService } from '../../../core/services/supabase/supabase.service';
 import { ProfileSelectionComponent } from '../../../features/profiles/components/profile-selection/profile-selection.component';
 import { ProfileIdPipe } from '../../../features/profiles/pipes';
-import { NotNullPipe } from '../../../pipes';
+import { NotNullPipe } from '../../pipes';
 import { GLOBAL_RX_STATE } from '../../../state';
 
 @Component({
