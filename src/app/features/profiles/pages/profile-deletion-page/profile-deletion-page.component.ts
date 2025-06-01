@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { ToastService } from '../../../../services/toast.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 import { GLOBAL_RX_STATE } from '../../../../state';
 import { Profile } from '../../models/Profile';
 import { ProfilesService } from '../../services/profiles.service';

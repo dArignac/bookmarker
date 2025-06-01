@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import { ProfilesService } from '../../services/profiles.service';
-import { ToastService } from '../../../../services/toast.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 import { GLOBAL_RX_STATE } from '../../../../state';
+import { ProfilesService } from '../../services/profiles.service';
 
 @Component({
   selector: 'app-bookmarks-page',
