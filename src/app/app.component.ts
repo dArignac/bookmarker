@@ -10,7 +10,7 @@ import { ProfilesService } from './features/profiles/services/profiles.service';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { SharedModule } from './shared/shared.module';
 import { GLOBAL_RX_STATE } from './state';
-import { ToastContainerComponent } from './toast-container/toast-container.component';
+import { ToastContainerComponent } from './shared/components/toast-container/toast-container.component';
 
 @Component({
   selector: 'app-root',
