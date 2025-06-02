@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, computed, inject, Input, Signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ToastService } from '@core/services/toast/toast.service';
 import { Profile } from '@features/profiles/models/Profile';
@@ -11,7 +11,7 @@ import { GLOBAL_RX_STATE } from '../../../../state';
   templateUrl: './profile-deletion-page.component.html',
   styleUrl: './profile-deletion-page.component.scss',
 })
-export class ProfileDeletionPageComponent implements OnInit {
+export class ProfileDeletionPageComponent {
   @Input() profileId: string = '';
 
   router = inject(Router);
@@ -22,19 +22,11 @@ export class ProfileDeletionPageComponent implements OnInit {
   globalState = inject(GLOBAL_RX_STATE);
   readonly profiles = this.globalState.get('profiles');
 
-  profile: Profile | undefined;
-
-  ngOnInit(): void {
-    if (this.profileId.length > 0) {
-      this.profile = this.profiles!.find((p) => p.id === this.profileId);
-    }
-  }
+  profile: Signal<Profile | undefined> = computed(() => (this.profileId.length > 0 ? this.profiles!.find((p) => p.id === this.profileId) : undefined));
 
   async deleteProfile() {
     if (this.profile) {
-      console.warn('Deleting profile:', this.profile);
-      const success = await this.serviceProfiles.deleteProfile(this.profile.id);
-      console.warn('Profile deletion success:', success);
+      const success = await this.serviceProfiles.deleteProfile(this.profile()!.id);
       if (!success) {
         this.serviceToast.showToast('Unable to delete profile!', 'error');
       } else {

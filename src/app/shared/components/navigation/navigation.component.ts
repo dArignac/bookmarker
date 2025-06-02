@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SupabaseService } from '@core/services/supabase/supabase.service';
 import { ProfileSelectionComponent } from '@features/profiles/components/profile-selection/profile-selection.component';
@@ -13,17 +13,13 @@ import { GLOBAL_RX_STATE } from '../../../state';
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
 })
-export class NavigationComponent implements OnInit, OnDestroy {
+export class NavigationComponent {
   serviceSupabase = inject(SupabaseService);
 
   globalState = inject(GLOBAL_RX_STATE);
   selectedProfile$ = this.globalState.select('selectedProfile');
 
   isLoggedIn$ = this.serviceSupabase.isLoggedIn$;
-
-  ngOnInit() {}
-
-  ngOnDestroy() {}
 
   public async logout(): Promise<void> {
     await this.serviceSupabase.logout();
