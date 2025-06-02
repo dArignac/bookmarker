@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { authRedirectGuard } from './core/guards/auth-redirect.guard';
-import { authGuard } from './core/guards/auth.guard';
-import { DashboardComponent } from './features/landing-pages/components/dashboard/dashboard.component';
-import { HomeComponent } from './features/landing-pages/components/home/home.component';
-import { PlaceholderComponent } from './features/landing-pages/components/placeholder/placeholder.component';
-import { ProfilesResolver } from './features/profiles/profiles.resolver';
-import { AppShellComponent } from './layout/app-shell/app-shell.component';
-import { TagsComponent } from './features/tags/tags.component';
-import { UserResolver } from './core/user.resolver';
+import { authRedirectGuard } from '@core/guards/auth-redirect.guard';
+import { authGuard } from '@core/guards/auth.guard';
+import { UserResolver } from '@core/user.resolver';
+import { DashboardComponent } from '@features/landing-pages/components/dashboard/dashboard.component';
+import { HomeComponent } from '@features/landing-pages/components/home/home.component';
+import { PlaceholderComponent } from '@features/landing-pages/components/placeholder/placeholder.component';
+import { ProfilesResolver } from '@features/profiles/profiles.resolver';
+import { TagsComponent } from '@features/tags/tags.component';
+import { AppShellComponent } from '@layout/app-shell/app-shell.component';
 
 export const routes: Routes = [
   // Redirect root path to home (or dashboard)

@@ -17,7 +17,15 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "allowUnreachableCode": false
+    "allowUnreachableCode": false,
+    "baseUrl": "./src",
+    "paths": {
+      "@core/*": ["app/core/*"],
+      "@environments/*": ["environments/*"],
+      "@features/*": ["app/features/*"],
+      "@layout/*": ["app/layout/*"],
+      "@shared/*": ["app/shared/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

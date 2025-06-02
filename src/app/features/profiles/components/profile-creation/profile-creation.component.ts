@@ -1,9 +1,9 @@
 import { Component, effect, inject, input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SupabaseService } from '@core/services/supabase/supabase.service';
+import { ToastService } from '@core/services/toast/toast.service';
+import { Profile } from '@features/profiles/models/Profile';
 import { PostgrestError } from '@supabase/supabase-js';
-import { SupabaseService } from '../../../../core/services/supabase/supabase.service';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import { Profile } from '../../models/Profile';
 
 @Component({
   selector: 'app-profile-creation',

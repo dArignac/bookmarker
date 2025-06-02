@@ -1,9 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { ToastService } from '../../../../core/services/toast/toast.service';
+import { ToastService } from '@core/services/toast/toast.service';
+import { Profile } from '@features/profiles/models/Profile';
+import { ProfilesService } from '@features/profiles/services/profiles.service';
 import { GLOBAL_RX_STATE } from '../../../../state';
-import { Profile } from '../../models/Profile';
-import { ProfilesService } from '../../services/profiles.service';
 
 @Component({
   selector: 'app-profile-deletion-page',

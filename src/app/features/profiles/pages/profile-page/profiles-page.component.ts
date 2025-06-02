@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { GLOBAL_RX_STATE } from '../../../../state';
-import { ProfileCreationComponent } from '../../components/profile-creation/profile-creation.component';
+import { ProfileCreationComponent } from '@features/profiles/components/profile-creation/profile-creation.component';
+import { GLOBAL_RX_STATE } from 'app/state';
 
 @Component({
   selector: 'app-profiles-page',

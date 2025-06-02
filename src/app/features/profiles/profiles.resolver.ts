@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { ProfilesService } from './services/profiles.service';
+import { ProfilesService } from '@features/profiles/services/profiles.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesResolver implements Resolve<Promise<boolean>> {

@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ProfileIdPipe } from '@features/profiles/pipes';
+import { ProfilesService } from '@features/profiles/services/profiles.service';
 import { GLOBAL_RX_STATE } from '../../../../state';
-import { ProfileIdPipe } from '../../pipes';
-import { ProfilesService } from '../../services/profiles.service';
 
 @Component({
   selector: 'app-profile-selection',

@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
+import { Profile } from '@features/profiles/models/Profile';
 import { RxState } from '@rx-angular/state';
-import { Profile } from './features/profiles/models/Profile';
 
 export interface GlobalState {
   selectedProfile: Profile | null;

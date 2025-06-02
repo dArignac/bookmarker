@@ -1,9 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { SupabaseService } from '@core/services/supabase/supabase.service';
+import { Profile } from '@features/profiles/models/Profile';
 import { PostgrestError, RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 import { produce } from 'immer';
-import { SupabaseService } from '../../../core/services/supabase/supabase.service';
 import { GLOBAL_RX_STATE } from '../../../state';
-import { Profile } from '../models/Profile';
 
 @Injectable({
   providedIn: 'root',

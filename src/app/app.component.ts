@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NavigationError, Router, RouterOutlet } from '@angular/router';
+import { CoreModule } from '@core/core.module';
+import { SupabaseService } from '@core/services/supabase/supabase.service';
+import { ToastService } from '@core/services/toast/toast.service';
+import { ProfilesService } from '@features/profiles/services/profiles.service';
 import { rxEffects } from '@rx-angular/state/effects';
+import { NavigationComponent } from '@shared/components/navigation/navigation.component';
+import { ToastContainerComponent } from '@shared/components/toast-container/toast-container.component';
+import { SharedModule } from '@shared/shared.module';
 import { Subscription } from 'rxjs';
-import { CoreModule } from './core/core.module';
-import { SupabaseService } from './core/services/supabase/supabase.service';
-import { ToastService } from './core/services/toast/toast.service';
-import { ProfilesService } from './features/profiles/services/profiles.service';
-import { NavigationComponent } from './shared/components/navigation/navigation.component';
-import { SharedModule } from './shared/shared.module';
 import { GLOBAL_RX_STATE } from './state';
-import { ToastContainerComponent } from './shared/components/toast-container/toast-container.component';
 
 @Component({
   selector: 'app-root',
