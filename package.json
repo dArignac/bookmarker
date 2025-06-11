@@ -42,5 +42,13 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "supabase": "^2.20.12",
     "typescript": "~5.8.2"
+  },
+  "overrides": {
+    "@rx-angular/cdk": {
+      "@angular/core": "^20.0.0"
+    },
+    "@rx-angular/state": {
+      "@angular/core": "^20.0.0"
+    }
   }
 }
