@@ -21,6 +21,8 @@ export class SupabaseService {
     this.supabase = createClient<Database>(environment.supabaseUrl, environment.supabaseKey);
 
     this.supabase.auth.onAuthStateChange((event, session) => {
+      // FIXME remove
+      console.warn(event, session);
       if (session != null) {
         this._session = session;
 
@@ -40,7 +42,7 @@ export class SupabaseService {
           // handle user updated event
         }
       } else {
-        console.log('No session.');
+        console.log('No session passed from Supabase.');
       }
     });
   }
