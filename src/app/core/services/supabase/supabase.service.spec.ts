@@ -46,7 +46,10 @@ describe('SupabaseService', () => {
   });
 
   it('should login with email and password', async () => {
+    // Act
     await service.loginWithEmail('test@example.com', 'password');
+
+    // Assert
     expect(mockSupabaseClient.auth.signInWithPassword).toHaveBeenCalledWith({
       email: 'test@example.com',
       password: 'password',
@@ -78,9 +81,14 @@ describe('SupabaseService', () => {
   });
 
   it('should logout and reset state', async () => {
+    // Arrange
     service._session = 'session' as any;
     service._user = 'user' as any;
+
+    // Act
     await service.logout();
+
+    // Assert
     expect(mockSupabaseClient.auth.signOut).toHaveBeenCalled();
     expect(service._session).toBeNull();
     expect(service._user).toBeNull();
@@ -88,7 +96,10 @@ describe('SupabaseService', () => {
   });
 
   it('should get user', async () => {
+    // Act
     const result = await service.getUser();
+
+    // Assert
     expect(mockSupabaseClient.auth.getUser).toHaveBeenCalled();
     expect(result.data.user).toEqual({ id: '1', email: 'test@example.com' });
   });
