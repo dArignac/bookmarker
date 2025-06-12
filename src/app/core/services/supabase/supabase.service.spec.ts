@@ -17,13 +17,19 @@ const mockSupabaseClient = {
   },
 };
 
+const mockSupabaseClientErroneous = {
+  auth: {
+    signInWithPassword: vi.fn(() => Promise.resolve({ data: null, error: 'Login failed' })),
+  },
+};
+
 vi.mock('@angular/router', () => ({ Router: vi.fn(() => mockRouter) }));
 
 // Get a root injector
 let rootInjector: EnvironmentInjector;
 
 // Test suite
-describe('SupabaseService (Vitest)', () => {
+describe('SupabaseService', () => {
   let service: SupabaseService;
 
   beforeAll(() => {
@@ -48,6 +54,27 @@ describe('SupabaseService (Vitest)', () => {
     expect(service._session).toBe('session');
     expect(service._user).toBe('user');
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
+  });
+
+  it('should log an error if login fails', async () => {
+    // Arrange
+    // @ts-ignore: private
+    service.supabase = mockSupabaseClientErroneous as any;
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    // Act
+    await service.loginWithEmail('test@example.com', 'password');
+
+    // Assert
+    expect(mockSupabaseClient.auth.signInWithPassword).toHaveBeenCalledWith({
+      email: 'test@example.com',
+      password: 'password',
+    });
+    expect(errorSpy).toHaveBeenCalledWith('Login failed');
+    expect(service._session).toBeNull();
+    expect(service._user).toBeNull();
+
+    errorSpy.mockRestore();
   });
 
   it('should logout and reset state', async () => {

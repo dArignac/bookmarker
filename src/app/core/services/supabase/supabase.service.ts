@@ -21,8 +21,6 @@ export class SupabaseService {
     this.supabase = createClient<Database>(environment.supabaseUrl, environment.supabaseKey);
 
     this.supabase.auth.onAuthStateChange((event, session) => {
-      // FIXME remove
-      console.warn(event, session);
       if (session != null) {
         this._session = session;
 
@@ -46,14 +44,6 @@ export class SupabaseService {
       }
     });
   }
-
-  // get session() {
-  //   this.supabase.auth.getSession().then(({ data }) => {
-  //     this._session = data.session;
-  //     console.warn('get session', this._session);
-  //   });
-  //   return this._session;
-  // }
 
   get user() {
     this.supabase.auth.getUser().then(({ data }) => {
@@ -105,8 +95,4 @@ export class SupabaseService {
       this.router.navigate(['/']);
     }
   }
-
-  // authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
-  //   return this.supabase.auth.onAuthStateChange(callback);
-  // }
 }
