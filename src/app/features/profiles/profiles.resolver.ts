@@ -6,7 +6,6 @@ import { ProfilesService } from '@features/profiles/services/profiles.service';
 export class ProfilesResolver implements Resolve<Promise<boolean>> {
   private serviceProfiles = inject(ProfilesService);
 
-  constructor() {}
   async resolve() {
     const success = await this.serviceProfiles.loadProfiles();
     if (!success) {

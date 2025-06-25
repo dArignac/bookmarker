@@ -16,6 +16,9 @@ export interface GlobalState {
       loading: string | null;
       selected: string | null;
     };
+    bookmarks: {
+      loading: string | null;
+    };
   };
 }
 

@@ -22,6 +22,9 @@ export const appConfig: ApplicationConfig = {
               loading: null,
               selected: null,
             },
+            bookmarks: {
+              loading: null,
+            },
           },
         });
         return state;

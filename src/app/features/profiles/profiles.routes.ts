@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from '@core/guards/auth.guard';
 import { UserResolver } from '@core/user.resolver';
 import { UuidRouteGuard } from '@shared/guards/uuid-route.guard';
+import { BookmarksResolver } from './bookmarks.resolver';
 import { BookmarksPageComponent } from './pages/bookmarks-page/bookmarks-page.component';
 import { ProfileDeletionPageComponent } from './pages/profile-deletion-page/profile-deletion-page.component';
 import { ProfilesPageComponent } from './pages/profile-page/profiles-page.component';
@@ -33,6 +34,7 @@ export const routes: Routes = [
     resolve: {
       user: UserResolver,
       profiles: ProfilesResolver,
+      bookmarks: BookmarksResolver,
     },
   },
 ];
