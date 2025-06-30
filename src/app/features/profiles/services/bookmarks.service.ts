@@ -14,63 +14,62 @@ export class BookmarksService {
 
   globalState = inject(GLOBAL_RX_STATE);
 
-  // profileChangesRealtimeChannel: RealtimeChannel | null = null;
+  bookmarkChangesRealtimeChannel: RealtimeChannel | null = null;
 
-  // selectedProfile = signal<Profile | null>(null);
-
+  // FIXME seems to not get updates, either impl error or permissions
   initializeRealtimeChannels(profileId: string) {
-    // FIXME impl
-    //   if (!this.profileChangesRealtimeChannel) {
-    //     this.profileChangesRealtimeChannel = this.serviceSupabase.instance
-    //       .channel('schema-db-changes')
-    //       .on(
-    //         'postgres_changes',
-    //         {
-    //           schema: 'public', // Subscribes to the "public" schema in Postgres
-    //           event: '*', // Listen to all changes
-    //           table: 'profiles', // Listen to profile table only
-    //         },
-    //         (payload) => this.realtimeUpdate(payload)
-    //       )
-    //       .subscribe();
-    //   }
+    if (!this.bookmarkChangesRealtimeChannel) {
+      this.bookmarkChangesRealtimeChannel = this.serviceSupabase.instance
+        .channel('schema-db-changes')
+        .on(
+          'postgres_changes',
+          {
+            schema: 'public', // Subscribes to the "public" schema in Postgres
+            event: '*', // Listen to all changes
+            table: 'bookmarks', // Listen to profile table only
+            // filter: `profile_id=eq.${profileId}`, // Filter for the specific profile
+          },
+          (payload) => this.realtimeUpdate(payload)
+        )
+        .subscribe();
+    }
   }
 
-  // async realtimeUpdate(
-  //   payload: RealtimePostgresChangesPayload<{
-  //     [key: string]: any;
-  //   }>
-  // ) {
-  //   console.log('Realtime update received:', payload);
+  async realtimeUpdate(
+    payload: RealtimePostgresChangesPayload<{
+      [key: string]: any;
+    }>
+  ) {
+    console.warn('Bookmarks Realtime update received:', payload);
 
-  //   if (payload.eventType === 'DELETE') {
-  //     this.globalState.set((state) =>
-  //       produce(state, (draft) => {
-  //         const index = draft.profiles!.findIndex((profile: Profile) => profile.id === payload.old['id']);
-  //         if (index !== -1) draft.profiles!.splice(index, 1);
-  //       })
-  //     );
-  //   } else if (payload.eventType === 'UPDATE') {
-  //     this.globalState.set((state) =>
-  //       produce(state, (draft) => {
-  //         const index = draft.profiles!.findIndex((profile: Profile) => profile.id === payload.new['id']);
-  //         if (index !== -1) {
-  //           draft.profiles![index] = { id: payload.new['id'], name: payload.new['name'] as string } as Profile;
-  //         }
-  //       })
-  //     );
-  //   } else if (payload.eventType === 'INSERT') {
-  //     this.globalState.set((state) =>
-  //       produce(state, (draft) => {
-  //         const newProfile: Profile = {
-  //           id: payload.new['id'],
-  //           name: payload.new['name'],
-  //         };
-  //         draft.profiles!.push(newProfile);
-  //       })
-  //     );
-  //   }
-  // }
+    // if (payload.eventType === 'DELETE') {
+    //   this.globalState.set((state) =>
+    //     produce(state, (draft) => {
+    //       const index = draft.profiles!.findIndex((profile: Profile) => profile.id === payload.old['id']);
+    //       if (index !== -1) draft.profiles!.splice(index, 1);
+    //     })
+    //   );
+    // } else if (payload.eventType === 'UPDATE') {
+    //   this.globalState.set((state) =>
+    //     produce(state, (draft) => {
+    //       const index = draft.profiles!.findIndex((profile: Profile) => profile.id === payload.new['id']);
+    //       if (index !== -1) {
+    //         draft.profiles![index] = { id: payload.new['id'], name: payload.new['name'] as string } as Profile;
+    //       }
+    //     })
+    //   );
+    // } else if (payload.eventType === 'INSERT') {
+    //   this.globalState.set((state) =>
+    //     produce(state, (draft) => {
+    //       const newProfile: Profile = {
+    //         id: payload.new['id'],
+    //         name: payload.new['name'],
+    //       };
+    //       draft.profiles!.push(newProfile);
+    //     })
+    //   );
+    // }
+  }
 
   async loadBookmarks(profileId: string): Promise<boolean> {
     const user = await this.serviceSupabase.getUser();
@@ -83,6 +82,8 @@ export class BookmarksService {
       .order('created_at', { ascending: false });
 
     if (error === null) {
+      // FIXME remove
+      console.warn('Bookmarks loaded successfully:', data);
       this.globalState.set((state) =>
         produce(state, (draft) => {
           if (draft.bookmarks === undefined) {

@@ -39,7 +39,7 @@ export class ProfilesService {
       [key: string]: any;
     }>
   ) {
-    console.log('Realtime update received:', payload);
+    console.warn('Profiles Realtime update received:', payload);
 
     if (payload.eventType === 'DELETE') {
       this.globalState.set((state) =>
