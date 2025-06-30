@@ -6,7 +6,6 @@ import { DashboardComponent } from '@features/landing-pages/components/dashboard
 import { HomeComponent } from '@features/landing-pages/components/home/home.component';
 import { PlaceholderComponent } from '@features/landing-pages/components/placeholder/placeholder.component';
 import { ProfilesResolver } from '@features/profiles/profiles.resolver';
-import { TagsComponent } from '@features/tags/tags.component';
 import { AppShellComponent } from '@layout/app-shell/app-shell.component';
 
 export const routes: Routes = [
@@ -56,10 +55,7 @@ export const routes: Routes = [
       },
       {
         path: 'tags',
-        component: TagsComponent,
-        resolve: {
-          user: UserResolver,
-        },
+        loadChildren: () => import('./features/tags/tags.routes').then((m) => m.routes),
       },
     ],
   },
