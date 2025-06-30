@@ -1,0 +1,8 @@
+<div class="d-grid grid__2">
+    @for (bookmark of bookmarks; track bookmark.id) {
+    <div class="grid-item"><a [href]="bookmark.url" target="_blank">{{ bookmark.title ?? bookmark.url }}</a></div>
+    <div class="grid-item">TODO Tags</div>
+    } @empty {
+    <div class="grid-item grid__2">No bookmarks found.</div>
+    }
+</div>

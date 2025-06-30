@@ -1,1 +1,9 @@
-<p>bookmarks-page works!</p>
+<div class="d-grid grid__3 m12">
+    <div class="grid--item grid--col-all m8"><app-tag-filter /></div>
+    <div class="grid--item grid--col2 d-grid m8">
+        <app-bookmark-list [bookmarks]="bookmarks$ | async" />
+    </div>
+    <div class="grid--item m8">
+        <app-bookmark-creation />
+    </div>
+</div>

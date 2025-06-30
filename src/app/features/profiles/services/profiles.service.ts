@@ -39,7 +39,7 @@ export class ProfilesService {
       [key: string]: any;
     }>
   ) {
-    console.log('Realtime update received:', payload);
+    console.warn('Profiles Realtime update received:', payload);
 
     if (payload.eventType === 'DELETE') {
       this.globalState.set((state) =>
@@ -71,7 +71,13 @@ export class ProfilesService {
   }
 
   async loadProfiles(): Promise<boolean> {
-    const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.serviceSupabase.instance.from('profiles').select('id,name').order('name', { ascending: true });
+    const user = await this.serviceSupabase.getUser();
+
+    const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.serviceSupabase.instance
+      .from('profiles')
+      .select('id,name')
+      .eq('user_id', user.data.user?.id)
+      .order('name', { ascending: true });
 
     if (error === null) {
       this.globalState.set((state) =>
@@ -114,7 +120,8 @@ export class ProfilesService {
   }
 
   async deleteProfile(profileId: string): Promise<boolean> {
-    const response = await this.serviceSupabase.instance.from('profiles').delete().eq('id', profileId);
+    const user = await this.serviceSupabase.getUser();
+    const response = await this.serviceSupabase.instance.from('profiles').delete().eq('id', profileId).eq('user_id', user.data.user?.id);
     return response.error === null;
   }
 }
