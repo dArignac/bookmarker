@@ -5,24 +5,21 @@ export type Database = {
     Tables: {
       bookmark_tags: {
         Row: {
-          bookmark_id: number;
+          bookmark_id: string;
           created_at: string;
-          id: number;
-          tag_id: number;
+          tag_id: string;
           user_id: string;
         };
         Insert: {
-          bookmark_id: number;
+          bookmark_id: string;
           created_at?: string;
-          id?: number;
-          tag_id: number;
+          tag_id: string;
           user_id: string;
         };
         Update: {
-          bookmark_id?: number;
+          bookmark_id?: string;
           created_at?: string;
-          id?: number;
-          tag_id?: number;
+          tag_id?: string;
           user_id?: string;
         };
         Relationships: [
@@ -45,7 +42,7 @@ export type Database = {
       bookmarks: {
         Row: {
           created_at: string;
-          id: number;
+          id: string;
           profile_id: string;
           title: string | null;
           url: string;
@@ -53,7 +50,7 @@ export type Database = {
         };
         Insert: {
           created_at?: string;
-          id?: number;
+          id?: string;
           profile_id: string;
           title?: string | null;
           url: string;
@@ -61,7 +58,7 @@ export type Database = {
         };
         Update: {
           created_at?: string;
-          id?: number;
+          id?: string;
           profile_id?: string;
           title?: string | null;
           url?: string;
@@ -104,19 +101,19 @@ export type Database = {
       tags: {
         Row: {
           created_at: string;
-          id: number;
+          id: string;
           name: string;
           user_id: string;
         };
         Insert: {
           created_at?: string;
-          id?: number;
+          id?: string;
           name: string;
           user_id: string;
         };
         Update: {
           created_at?: string;
-          id?: number;
+          id?: string;
           name?: string;
           user_id?: string;
         };

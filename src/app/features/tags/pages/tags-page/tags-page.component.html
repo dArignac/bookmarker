@@ -1,1 +1,12 @@
-<p>tags-page works!</p>
+<div class="d-grid grid__3 m12">
+    <div class="grid--item grid--col2 d-grid grid__2 m8">
+        @for (tag of tags$ | async; track tag.id) {
+        <app-tag [tag]="tag" />
+        } @empty {
+        <div class="grid-item grid__2">No tags found.</div>
+        }
+    </div>
+    <div class="grid--item">
+        <app-tag-creation />
+    </div>
+</div>
