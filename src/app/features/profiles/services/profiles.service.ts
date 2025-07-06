@@ -27,6 +27,7 @@ export class ProfilesService {
             schema: 'public', // Subscribes to the "public" schema in Postgres
             event: '*', // Listen to all changes
             table: 'profiles', // Listen to profile table only
+            // FIXME is missing a "filter"
           },
           (payload) => this.realtimeUpdate(payload)
         )

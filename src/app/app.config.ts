@@ -18,11 +18,14 @@ export const appConfig: ApplicationConfig = {
           selectedProfile: null,
           profiles: null,
           errors: {
+            bookmarks: {
+              loading: null,
+            },
             profiles: {
               loading: null,
               selected: null,
             },
-            bookmarks: {
+            tags: {
               loading: null,
             },
           },

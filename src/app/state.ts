@@ -18,11 +18,14 @@ export interface GlobalState {
   tags: Tag[];
 
   errors: {
+    bookmarks: {
+      loading: string | null;
+    };
     profiles: {
       loading: string | null;
       selected: string | null;
     };
-    bookmarks: {
+    tags: {
       loading: string | null;
     };
   };
