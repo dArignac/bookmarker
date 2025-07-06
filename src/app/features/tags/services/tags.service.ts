@@ -4,11 +4,13 @@ import { Profile } from '@features/profiles/models/Profile';
 import { PostgrestError, RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 import { produce } from 'immer';
 import { GLOBAL_RX_STATE } from '../../../state';
+import { Tag } from '../models/Tag';
+import { T } from 'vitest/dist/chunks/reporters.d.BFLkQcL6.js';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProfilesService {
+export class TagsService {
   serviceSupabase = inject(SupabaseService);
 
   globalState = inject(GLOBAL_RX_STATE);
@@ -26,7 +28,7 @@ export class ProfilesService {
           {
             schema: 'public', // Subscribes to the "public" schema in Postgres
             event: '*', // Listen to all changes
-            table: 'profiles', // Listen to profile table only
+            table: 'tags', // Listen to profile table only
             // FIXME is missing a "filter"
           },
           (payload) => this.realtimeUpdate(payload)
@@ -34,57 +36,57 @@ export class ProfilesService {
         .subscribe();
     }
   }
-
   async realtimeUpdate(
     payload: RealtimePostgresChangesPayload<{
       [key: string]: any;
     }>
   ) {
-    console.warn('Profiles Realtime update received:', payload);
-
+    console.warn('Tags Realtime update received:', payload);
     if (payload.eventType === 'DELETE') {
       this.globalState.set((state) =>
         produce(state, (draft) => {
-          const index = draft.profiles!.findIndex((profile: Profile) => profile.id === payload.old['id']);
-          if (index !== -1) draft.profiles!.splice(index, 1);
+          const index = draft.tags!.findIndex((tag: Tag) => tag.id === payload.old['id']);
+          if (index !== -1) draft.tags!.splice(index, 1);
         })
       );
     } else if (payload.eventType === 'UPDATE') {
       this.globalState.set((state) =>
         produce(state, (draft) => {
-          const index = draft.profiles!.findIndex((profile: Profile) => profile.id === payload.new['id']);
+          const index = draft.tags!.findIndex((tag: Tag) => tag.id === payload.new['id']);
           if (index !== -1) {
-            draft.profiles![index] = { id: payload.new['id'], name: payload.new['name'] as string } as Profile;
+            draft.tags![index] = { id: payload.new['id'], name: payload.new['name'] as string } as Tag;
           }
         })
       );
     } else if (payload.eventType === 'INSERT') {
       this.globalState.set((state) =>
         produce(state, (draft) => {
-          const newProfile: Profile = {
+          const newTag: Tag = {
+            created_at: payload.new['created_at'],
             id: payload.new['id'],
             name: payload.new['name'],
+            user_id: payload.new['user_id'],
           };
-          draft.profiles!.push(newProfile);
+          draft.tags!.push(newTag);
         })
       );
     }
   }
 
-  async loadProfiles(): Promise<boolean> {
+  async loadTags(): Promise<boolean> {
     const user = await this.serviceSupabase.getUser();
 
-    const { data, error }: { data: Profile[] | null; error: PostgrestError | null } = await this.serviceSupabase.instance
-      .from('profiles')
-      .select('id,name')
+    const { data, error }: { data: Tag[] | null; error: PostgrestError | null } = await this.serviceSupabase.instance
+      .from('tags')
+      .select('id,name,created_at,user_id')
       .eq('user_id', user.data.user?.id)
       .order('name', { ascending: true });
 
     if (error === null) {
       this.globalState.set((state) =>
         produce(state, (draft) => {
-          draft.profiles = data ?? [];
-          draft.errors.profiles.loading = null;
+          draft.tags = data ?? [];
+          draft.errors.tags.loading = null;
         })
       );
 
@@ -92,8 +94,8 @@ export class ProfilesService {
     } else {
       this.globalState.set((state) =>
         produce(state, (draft) => {
-          draft.profiles = [];
-          draft.errors.profiles.loading = error.message;
+          draft.tags = [];
+          draft.errors.tags.loading = error.message;
         })
       );
 
@@ -101,28 +103,28 @@ export class ProfilesService {
     }
   }
 
-  setSelectedProfile(profileId: string): boolean {
-    const profiles = this.globalState.get('profiles');
-    const selectedProfile = profiles?.find((profile) => profile.id === profileId) || null;
+  //   setSelectedProfile(profileId: string): boolean {
+  //     const profiles = this.globalState.get('profiles');
+  //     const selectedProfile = profiles?.find((profile) => profile.id === profileId) || null;
 
-    if (selectedProfile === null) {
-      // error case, toast is handled by calling component
-      return false;
-    }
+  //     if (selectedProfile === null) {
+  //       // error case, toast is handled by calling component
+  //       return false;
+  //     }
 
-    // success case, set the selected profile
-    this.globalState.set((state) =>
-      produce(state, (draft) => {
-        draft.selectedProfile = selectedProfile;
-      })
-    );
+  //     // success case, set the selected profile
+  //     this.globalState.set((state) =>
+  //       produce(state, (draft) => {
+  //         draft.selectedProfile = selectedProfile;
+  //       })
+  //     );
 
-    return true;
-  }
+  //     return true;
+  //   }
 
-  async deleteProfile(profileId: string): Promise<boolean> {
-    const user = await this.serviceSupabase.getUser();
-    const response = await this.serviceSupabase.instance.from('profiles').delete().eq('id', profileId).eq('user_id', user.data.user?.id);
-    return response.error === null;
-  }
+  //   async deleteProfile(profileId: string): Promise<boolean> {
+  //     const user = await this.serviceSupabase.getUser();
+  //     const response = await this.serviceSupabase.instance.from('profiles').delete().eq('id', profileId).eq('user_id', user.data.user?.id);
+  //     return response.error === null;
+  //   }
 }

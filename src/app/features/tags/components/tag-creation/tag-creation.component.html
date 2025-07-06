@@ -2,7 +2,7 @@
     <div class="flex--item12">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="d-flex gy4 fd-column mb6">
-                <label class="s-label" for="name">Profile Name</label>
+                <label class="s-label" for="name">Tag Name</label>
                 <input formControlName="name" class="s-input" id="name" type="text" />
             </div>
 
@@ -11,10 +11,10 @@
                     @if (isLoading) {
                     <div class="is-loading">Saving...</div>
                     } @else {
-                    @if(profileInEdit === null) {
-                    Create Profile
+                    @if(tagInEdit === null) {
+                    Create Tag
                     } @else {
-                    Update Profile
+                    Update Tag
                     }
                     }
                 </button>

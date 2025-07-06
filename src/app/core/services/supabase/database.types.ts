@@ -3,10 +3,46 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      bookmark_tags: {
+        Row: {
+          bookmark_id: string;
+          created_at: string;
+          tag_id: string;
+          user_id: string;
+        };
+        Insert: {
+          bookmark_id: string;
+          created_at?: string;
+          tag_id: string;
+          user_id: string;
+        };
+        Update: {
+          bookmark_id?: string;
+          created_at?: string;
+          tag_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'bookmark_tags_bookmark_id_fkey';
+            columns: ['bookmark_id'];
+            isOneToOne: false;
+            referencedRelation: 'bookmarks';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'bookmark_tags_tag_id_fkey';
+            columns: ['tag_id'];
+            isOneToOne: false;
+            referencedRelation: 'tags';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
       bookmarks: {
         Row: {
           created_at: string;
-          id: number;
+          id: string;
           profile_id: string;
           title: string | null;
           url: string;
@@ -14,7 +50,7 @@ export type Database = {
         };
         Insert: {
           created_at?: string;
-          id?: number;
+          id?: string;
           profile_id: string;
           title?: string | null;
           url: string;
@@ -22,7 +58,7 @@ export type Database = {
         };
         Update: {
           created_at?: string;
-          id?: number;
+          id?: string;
           profile_id?: string;
           title?: string | null;
           url?: string;
@@ -57,6 +93,27 @@ export type Database = {
           created_at?: string;
           id?: string;
           is_hidden?: boolean;
+          name?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      tags: {
+        Row: {
+          created_at: string;
+          id: string;
+          name: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          name: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
           name?: string;
           user_id?: string;
         };
